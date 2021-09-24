@@ -28,7 +28,7 @@ class LoginScreen extends StatelessWidget {
               // layoutBehavior: ,
               children: <Widget>[
                 Container(
-                  width: double.infinity,
+                  width: screen_width,
                   child: ElevatedButton(
                     onPressed: () {
                       showModalBottomSheet<void>(
@@ -48,9 +48,8 @@ class LoginScreen extends StatelessWidget {
                         primary: Colors.lightGreen.shade300),
                   ),
                 ),
-                // Padding(padding: EdgeInsets.all(50)),
                 Container(
-                  width: double.infinity,
+                  width: screen_width,
                   child: ElevatedButton(
                     onPressed: () {},
                     child: Text('Guest'),
