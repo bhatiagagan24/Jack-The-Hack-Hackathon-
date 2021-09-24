@@ -2,7 +2,7 @@
 
 // ignore_for_file: file_names
 
-import 'dart:ffi';
+// import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 
@@ -11,6 +11,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var screen_width = MediaQuery.of(context).size.width;
     return ListView(
       // crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
@@ -65,21 +66,45 @@ class LoginScreen extends StatelessWidget {
         SingleChildScrollView(
           child: Column(
             children: [
-              ElevatedButton(onPressed: () {}, child: Text('yo')),
-              ElevatedButton(onPressed: () {}, child: Text('yo')),
-              ElevatedButton(onPressed: () {}, child: Text('yo')),
-              ElevatedButton(onPressed: () {}, child: Text('yo')),
-              ElevatedButton(onPressed: () {}, child: Text('yo')),
-              ElevatedButton(onPressed: () {}, child: Text('yo')),
-              ElevatedButton(onPressed: () {}, child: Text('yo')),
-              ElevatedButton(onPressed: () {}, child: Text('yo')),
-              ElevatedButton(onPressed: () {}, child: Text('yo')),
-              ElevatedButton(onPressed: () {}, child: Text('yo')),
-              ElevatedButton(onPressed: () {}, child: Text('yo')),
-              ElevatedButton(onPressed: () {}, child: Text('yo')),
-              ElevatedButton(onPressed: () {}, child: Text('yo')),
-              ElevatedButton(onPressed: () {}, child: Text('yo')),
-              ElevatedButton(onPressed: () {}, child: Text('yo')),
+              // ElevatedButton(onPressed: () {}, child: Text('yo')),
+              // ButtonTheme(
+              //   minWidth: 200,
+              //   height: 400,
+              //   child: ElevatedButton.icon(
+              //     onPressed: () {},
+              //     icon: Icon(Icons.help),
+              //     label: Text('Help'),
+              //   ),
+
+              ButtonBar(
+                alignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  MaterialButton(
+                    onPressed: () {},
+                    child: Row(
+                      children: <Widget>[
+                        Icon(Icons.help),
+                        Text('Help'),
+                      ],
+                    ),
+                    height: 60,
+                    minWidth: (screen_width / 2) - 30,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  MaterialButton(
+                    onPressed: () {},
+                    child: Row(
+                      children: <Widget>[
+                        Icon(Icons.group),
+                        Text('About Us'),
+                      ],
+                    ),
+                    height: 60,
+                    minWidth: (screen_width / 2) - 30,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ],
+              )
             ],
           ),
         )
