@@ -2,6 +2,8 @@
 
 // ignore_for_file: file_names
 
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -9,8 +11,8 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
+    return ListView(
+      // crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         // scrollDirection: Axis.vertical,
         // child:
@@ -25,14 +27,20 @@ class LoginScreen extends StatelessWidget {
               // layoutBehavior: ,
               children: <Widget>[
                 ElevatedButton(
-                  onPressed: () {},
-                  child: Text('Login'),
-                  style: ElevatedButton.styleFrom(
-                      primary: Colors.lightGreen.shade300),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text('Signup'),
+                  onPressed: () {
+                    showModalBottomSheet<void>(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Container(
+                          height: 200,
+                          child: Center(
+                            child: Text('This is the Modal Sheet'),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  child: Text('Google Sign-in'),
                   style: ElevatedButton.styleFrom(
                       primary: Colors.lightGreen.shade300),
                 ),
@@ -53,8 +61,32 @@ class LoginScreen extends StatelessWidget {
           'Home Page Banner Here',
         ),
         Text('The banner photos will be uploaded here by organization'),
-        Text('Contact information here in the end menu')
+        Text('Contact information here in the end menu'),
+        SingleChildScrollView(
+          child: Column(
+            children: [
+              ElevatedButton(onPressed: () {}, child: Text('yo')),
+              ElevatedButton(onPressed: () {}, child: Text('yo')),
+              ElevatedButton(onPressed: () {}, child: Text('yo')),
+              ElevatedButton(onPressed: () {}, child: Text('yo')),
+              ElevatedButton(onPressed: () {}, child: Text('yo')),
+              ElevatedButton(onPressed: () {}, child: Text('yo')),
+              ElevatedButton(onPressed: () {}, child: Text('yo')),
+              ElevatedButton(onPressed: () {}, child: Text('yo')),
+              ElevatedButton(onPressed: () {}, child: Text('yo')),
+              ElevatedButton(onPressed: () {}, child: Text('yo')),
+              ElevatedButton(onPressed: () {}, child: Text('yo')),
+              ElevatedButton(onPressed: () {}, child: Text('yo')),
+              ElevatedButton(onPressed: () {}, child: Text('yo')),
+              ElevatedButton(onPressed: () {}, child: Text('yo')),
+              ElevatedButton(onPressed: () {}, child: Text('yo')),
+            ],
+          ),
+        )
       ],
     );
   }
 }
+
+// this model sheet pops up when Google sign-in button pressed
+
