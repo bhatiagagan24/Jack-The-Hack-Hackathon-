@@ -27,29 +27,36 @@ class LoginScreen extends StatelessWidget {
               alignment: MainAxisAlignment.center,
               // layoutBehavior: ,
               children: <Widget>[
-                ElevatedButton(
-                  onPressed: () {
-                    showModalBottomSheet<void>(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Container(
-                          height: 200,
-                          child: Center(
-                            child: Text('This is the Modal Sheet'),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                  child: Text('Google Sign-in'),
-                  style: ElevatedButton.styleFrom(
-                      primary: Colors.lightGreen.shade300),
+                Container(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      showModalBottomSheet<void>(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Container(
+                            height: 200,
+                            child: Center(
+                              child: Text('This is the Modal Sheet'),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    child: Text('Google Sign-in'),
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.lightGreen.shade300),
+                  ),
                 ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text('Guest'),
-                  style: ElevatedButton.styleFrom(
-                      primary: Colors.lightGreen.shade300),
+                // Padding(padding: EdgeInsets.all(50)),
+                Container(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: Text('Guest'),
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.lightGreen.shade300),
+                  ),
                 ),
               ],
             ),
