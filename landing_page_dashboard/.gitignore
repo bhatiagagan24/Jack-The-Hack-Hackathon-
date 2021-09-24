@@ -1,0 +1,13 @@
+analysis_options.yaml  
+build/  
+pubspec.lock  
+README.md                     
+test/  
+windows/
+android/               
+ios/    
+lib/                     
+pubspec.yaml  
+smart_journey_experience.iml  
+web/   
+winuwp/
