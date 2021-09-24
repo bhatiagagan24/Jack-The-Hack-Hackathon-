@@ -5,6 +5,7 @@
 // import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -64,6 +65,18 @@ class LoginScreen extends StatelessWidget {
         ),
 
         // HomePage banner will be added here now: -
+        CarouselSlider(
+            items: [
+              Card(
+                child: Image.network(
+                    'https://4.imimg.com/data4/WA/YP/GLADMIN-14324829/touch-screen-500x500.png'),
+              ),
+            ],
+            options: CarouselOptions(
+              height: 200,
+              autoPlay: true,
+              enableInfiniteScroll: true,
+            )),
         Text(
           'Home Page Banner Here',
         ),
