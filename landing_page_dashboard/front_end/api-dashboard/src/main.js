@@ -7,4 +7,5 @@ const app = new App({
 	}
 });
 
+// const app = new Home({target: document.body});
 export default app;

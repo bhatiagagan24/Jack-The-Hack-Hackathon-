@@ -1,10 +1,13 @@
 <script>
 	export let name;
-	import home from './components/home.svelte';
+	import HomeMenu from './components/HomeMenu.svelte';
 	import AppImageForm from './components/appImageForm.svelte';
+	
 </script>
 
 <main>
+	<HomeMenu></HomeMenu>
+	<hr>
 	<h1>Hello {name}!</h1>
 	<AppImageForm></AppImageForm>
 </main>
