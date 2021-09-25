@@ -56,13 +56,13 @@ class Image_Info_Insert:
 # 5 represents the number of rows I need
 # '''
 
-obj1 = Fetch_Image_Info(5)
-final_res = obj1.fetching_the_result()
-print(final_res)
+# obj1 = Fetch_Image_Info(5)
+# final_res = obj1.fetching_the_result()
+# print(final_res)
 
 # '''
 
 # Testing the class Image_info_insert here
 
-obj1 = Image_Info_Insert("img_temp1")
-res = obj1.uploading_image()
+# obj1 = Image_Info_Insert("img_temp1")
+# res = obj1.uploading_image()

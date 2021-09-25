@@ -22,8 +22,8 @@ class Create_Database:
             return -1
 
 
-obj1 = Create_Database()
-obj1.create_table()
+# obj1 = Create_Database()
+# obj1.create_table()
     
 
 
