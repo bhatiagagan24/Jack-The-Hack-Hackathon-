@@ -97,21 +97,31 @@ class _LoginScreenState extends State<LoginScreen> {
                         primary: Colors.lightGreen.shade300),
                   ),
                 ),
-                Container(
-                  width: screen_width,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: Text('Guest'),
-                    style: ElevatedButton.styleFrom(
-                        primary: Colors.lightGreen.shade300),
-                  ),
-                ),
               ],
             ),
             // ),
           ],
         ),
-
+        ButtonBar(
+          alignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            TextButton.icon(
+                // onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Deals()),
+                  );
+                },
+                icon: Icon(Icons.shopping_bag_outlined),
+                label: Text('Shopping Deals')),
+            TextButton.icon(
+              onPressed: () {},
+              icon: Icon(Icons.food_bank_outlined),
+              label: Text('Dining Deals'),
+            ),
+          ],
+        ),
         // HomePage banner will be added here now: -
 
         // ignore: avoid_unnecessary_containers
@@ -167,61 +177,62 @@ class _LoginScreenState extends State<LoginScreen> {
             }
           },
         ),
-        Text(
-          'Home Page Banner Here',
-        ),
-        Text('The banner photos will be uploaded here by organization'),
-        Text('Contact information here in the end menu'),
         SingleChildScrollView(
           child: Column(
             children: [
-              ButtonBar(
-                alignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  MaterialButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Deals()),
-                      );
-                    },
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(Icons.shopping_cart),
-                        Text(
-                          'Shopping Deals',
-                          // textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                    height: 60,
-                    minWidth: (screen_width / 2),
-                    color: Theme.of(context).primaryColor,
-                  ),
-                ],
-              ),
-              ButtonBar(
-                alignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  MaterialButton(
-                    onPressed: () {},
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(Icons.food_bank_sharp),
-                        Text(
-                          'Food Deals',
-                          // textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                    height: 60,
-                    minWidth: (screen_width / 2),
-                    color: Theme.of(context).primaryColor,
-                  ),
-                ],
-              ),
+              // ButtonBar(
+              //   alignment: MainAxisAlignment.spaceEvenly,
+              //   children: <Widget>[
+              //     MaterialButton(
+              //       onPressed: () {
+              //         Navigator.push(
+              //           context,
+              //           MaterialPageRoute(builder: (context) => Deals()),
+              //         );
+              //       },
+              //       child: Row(
+              //         crossAxisAlignment: CrossAxisAlignment.center,
+              //         children: <Widget>[
+              //           Icon(Icons.shopping_cart),
+              //           Text(
+              //             'Shopping Deals',
+              //             // textAlign: TextAlign.center,
+              //           ),
+              //         ],
+              //       ),
+              //       height: 60,
+              //       minWidth: (screen_width / 2),
+              //       color: Theme.of(context).primaryColor,
+              //     ),
+              //   ],
+              // ),
+              // ButtonBar(
+              //   alignment: MainAxisAlignment.center,
+              //   children: <Widget>[
+              //     MaterialButton(
+              //       onPressed: () {
+              //         Navigator.push(
+              //           context,
+              //           MaterialPageRoute(builder: (context) => Deals()),
+              //         );
+              //       },
+              //       child: Row(
+              //         crossAxisAlignment: CrossAxisAlignment.center,
+              //         children: <Widget>[
+              //           Icon(Icons.food_bank_sharp),
+              //           Text(
+              //             'Food Deals',
+              //             // textAlign: TextAlign.center,
+              //           ),
+              //         ],
+              //       ),
+              //       height: 60,
+              //       minWidth: (screen_width / 2),
+              //       color: Theme.of(context).primaryColor,
+              //     ),
+              //   ],
+              // ),
+
               ButtonBar(
                 alignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
