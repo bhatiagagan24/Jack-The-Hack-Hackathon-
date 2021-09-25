@@ -34,6 +34,7 @@ def upload_photo():
         try:
             db_upload_object = database_access.Image_Info_Insert(file_name)
             db_upload_response = db_upload_object.uploading_image()
+            del db_upload_object
             if db_upload_response == 1:
                 return json.dumps("File uploaded successfully and DB updated successfully")
             else:
@@ -43,14 +44,21 @@ def upload_photo():
         return json.dumps("file successfully uploaded")
     except:
         return json.dumps("An error occured while uploading the file")
+    return "This return statement shouldn't have been accessed. Possible Error"
 
 
 
 # route for seving the url of the photos. Accessible only with GET request. 
 # Route will be used by the mobile app
-@app.route('/url-fetch', methods=['GET'])
+@app.route('/urlfetch/getlinks', methods=['GET'])
 def serve_url():
-    pass
+    # 5 specified here because I am returning only 5 images.
+    # There willl be option to send more images
+    obj1 = database_access.Fetch_Image_Info(5)
+    final_res = obj1.fetching_the_result()
+    del obj1
+    return json.dumps(final_res)
+    # pass
 
 
 
