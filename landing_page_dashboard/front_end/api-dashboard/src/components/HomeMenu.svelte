@@ -13,12 +13,23 @@ import Button, {Label} from '@smui/button';
 </Button>
 <Button color="primary" variant="outlined">
     <Label>
-        New Airport
+        Airports
     </Label>
 </Button>
 <Button color="primary" variant="outlined">
     <Label>
-        New Shop
+        Shops
     </Label>
 </Button>
+<Button color="primary" variant="outlined">
+    <Label>
+        Services Requested
+    </Label>
+</Button>
+<Button color="primary" variant="outlined">
+    <Label>
+        API Endpoints
+    </Label>
+</Button>
+
 </main>

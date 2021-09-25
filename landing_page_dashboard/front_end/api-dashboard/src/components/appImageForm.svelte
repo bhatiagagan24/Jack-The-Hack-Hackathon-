@@ -8,18 +8,15 @@
 
 <main>
     <form>
-        <input type="file" bind:files />
-    </form>
-    <h1>
-        File Name ->
+       <input type="file" bind:files />
+    <h4>
+        File Name
         {#if files}
         <p>
             {files[0].name}
         </p>
-        {:else}
-        <p>
-            Please select the file
-        </p>
         {/if}
-    </h1>
+    </h4>
+    <input type="submit" />
+</form>
 </main>

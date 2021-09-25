@@ -1,5 +1,5 @@
 <script>
-	export let name;
+	// export let name;
 	import HomeMenu from './components/HomeMenu.svelte';
 	import AppImageForm from './components/appImageForm.svelte';
 	
@@ -8,7 +8,8 @@
 <main>
 	<HomeMenu></HomeMenu>
 	<hr>
-	<h1>Hello {name}!</h1>
+	<h3>Upload Images to Display them on App Home Screen</h3>
+	<!-- <h1>Hello {name}!</h1> -->
 	<AppImageForm></AppImageForm>
 </main>
 
@@ -20,11 +21,11 @@
 		margin: 0 auto;
 	}
 
-	h1 {
-		color: #ff3e00;
+	h3 {
+		color: red;
 		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
+		font-size: 2em;
+		font-weight: 200;
 	}
 
 	@media (min-width: 640px) {
