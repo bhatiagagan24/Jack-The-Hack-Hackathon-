@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_journey_experience/screens/appLandingPage.dart';
 import 'screens/appLandingPage.dart';
-import 'package:smart_journey_experience/screens/app_assistance.dart';
+import 'package:smart_journey_experience/screens/app_qrcodescanner.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.indigo,
       ),
       home: const HomePage(),
-      // home: const Deals(),
+      // home: const QRCodeScanner(),
       // home: const Assistance(),
     );
   }
