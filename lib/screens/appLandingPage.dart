@@ -10,6 +10,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:http/http.dart' as http;
+import 'package:smart_journey_experience/screens/app_deals.dart';
 
 class HomeScreenPhotos {
   var photo_name;
@@ -178,7 +179,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 alignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   MaterialButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Deals()),
+                      );
+                    },
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
