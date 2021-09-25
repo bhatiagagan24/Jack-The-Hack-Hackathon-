@@ -94,6 +94,49 @@ class LoginScreen extends StatelessWidget {
               //     icon: Icon(Icons.help),
               //     label: Text('Help'),
               //   ),
+              ButtonBar(
+                alignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  MaterialButton(
+                    onPressed: () {},
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(Icons.shopping_cart),
+                        Text(
+                          'Shopping Deals',
+                          // textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                    height: 60,
+                    minWidth: (screen_width / 2),
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ],
+              ),
+
+              ButtonBar(
+                alignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  MaterialButton(
+                    onPressed: () {},
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(Icons.food_bank_sharp),
+                        Text(
+                          'Food Deals',
+                          // textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                    height: 60,
+                    minWidth: (screen_width / 2),
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ],
+              ),
 
               ButtonBar(
                 alignment: MainAxisAlignment.spaceEvenly,
