@@ -99,7 +99,9 @@ class LoginScreen extends StatelessWidget {
                 alignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   MaterialButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/help');
+                    },
                     child: Row(
                       children: <Widget>[
                         Icon(Icons.help),
@@ -111,7 +113,9 @@ class LoginScreen extends StatelessWidget {
                     color: Theme.of(context).primaryColor,
                   ),
                   MaterialButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/about_us');
+                    },
                     child: Row(
                       children: <Widget>[
                         Icon(Icons.group),
