@@ -1,4 +1,4 @@
-from flask import Flask, send_file, redirect
+from flask import Flask, send_file, redirect, abort
 from pathlib import Path
 import json
 import os
@@ -37,15 +37,14 @@ def serve_image(image_tag):
         return send_file((f'{Path(__file__).parent.absolute()}\\images\\{image_tag}'), mimetype='image/gif')
         # return "image sent here"
     else:
-    #     # redirect to 404 error
-    #     # return redirect("/404")
-        return "Image not exists or error"
+        return abort(404)
 
 
-# # error 404
-# @app.errorhandler(404)
-# def errornotfound():
-#     return "not found"
+
+# when the route is not defined
+@app.errorhandler(404)
+def not_found(e):
+    return json.dumps("URL not found")
 
 
 if __name__ == '__main__':
