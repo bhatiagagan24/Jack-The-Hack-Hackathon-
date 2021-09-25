@@ -16,7 +16,7 @@ class SignIn extends StatelessWidget {
             ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
                     primary: Colors.white, onPrimary: Colors.black),
-                onPressed: signIn,
+                onPressed: () => signIn(context),
                 icon: FaIcon(
                   FontAwesomeIcons.google,
                   color: Colors.red,
@@ -26,7 +26,16 @@ class SignIn extends StatelessWidget {
     );
   }
 
-  Future signIn() async {
+  Future signIn(BuildContext context) async {
     final user = await GoogleSignInApi.login();
+    if (user == null) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Sign In Failed')));
+    } else {
+      //user.displayName
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Welcome' + user.displayName!)));
+      // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> LoggedInPage(user:User)));
+    }
   }
 }

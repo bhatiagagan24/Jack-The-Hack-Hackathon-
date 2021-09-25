@@ -36,13 +36,15 @@ class LoginScreen extends StatelessWidget {
                       showModalBottomSheet<void>(
                         context: context,
                         builder: (BuildContext context) {
-                          return Container(
+                          return Center(
+                              child: Container(
+                            alignment: Alignment.center,
                             height: 200,
                             // child: Center(
                             //   child: Text('This is the Modal Sheet'),
                             // ),
                             child: SignIn(),
-                          );
+                          ));
                         },
                       );
                     },
