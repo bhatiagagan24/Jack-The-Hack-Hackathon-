@@ -7,21 +7,30 @@ class Help extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Help",
+            style: TextStyle(
+                fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
+          ),
+          backgroundColor: Colors.deepPurple.shade200,
+          centerTitle: true,
+        ),
         backgroundColor: Colors.lightGreen,
         body: Column(
           children: <Widget>[
             SizedBox(
-              height: 60,
+              height: 10,
             ),
             Center(
-              child: Text(
-                "Help",
-                style: TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue),
-              ),
-            ),
+                // child: Text(
+                //   "Help",
+                //   style: TextStyle(
+                //       fontSize: 40,
+                //       fontWeight: FontWeight.bold,
+                //       color: Colors.blue),
+                // ),
+                ),
             Padding(padding: EdgeInsets.all(40)),
             Container(
               width: 450,
