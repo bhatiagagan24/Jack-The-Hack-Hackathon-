@@ -27,6 +27,6 @@ class SignIn extends StatelessWidget {
   }
 
   Future signIn() async {
-    await GoogleSignInApi.login();
+    final user = await GoogleSignInApi.login();
   }
 }

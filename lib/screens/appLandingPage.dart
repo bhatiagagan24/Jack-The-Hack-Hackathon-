@@ -6,6 +6,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'app_Login.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -37,14 +38,15 @@ class LoginScreen extends StatelessWidget {
                         builder: (BuildContext context) {
                           return Container(
                             height: 200,
-                            child: Center(
-                              child: Text('This is the Modal Sheet'),
-                            ),
+                            // child: Center(
+                            //   child: Text('This is the Modal Sheet'),
+                            // ),
+                            child: SignIn(),
                           );
                         },
                       );
                     },
-                    child: Text('Google Sign-in'),
+                    child: Text('Login'),
                     style: ElevatedButton.styleFrom(
                         primary: Colors.lightGreen.shade300),
                   ),
