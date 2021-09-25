@@ -7,6 +7,8 @@ from os.path import join, dirname, realpath
 from flask.globals import request
 import database_access
 
+from werkzeug.serving import WSGIRequestHandler
+
 app = Flask(__name__)
 
 FILE_PATH = join(dirname(realpath(__file__)), 'images')
@@ -84,4 +86,5 @@ def not_found(e):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    WSGIRequestHandler.protocol_version = "HTTP/1.1"
+    app.run(host='0.0.0.0' , debug=True)
