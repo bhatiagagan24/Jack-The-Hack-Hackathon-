@@ -4,11 +4,33 @@
 
 // import 'dart:ffi';
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:http/http.dart' as http;
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  @override
+  void initState() {
+    print('Inside initstate');
+    log("inside initstate");
+  }
+
+  Future<String> getImageUri() async {
+    print('inside future function');
+    final url = Uri.parse('http://192.168.1.10:5000/urlfetch/getlinks');
+    http.Response response = await http.get(url);
+    print(response.body);
+    return response.body;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,17 +88,29 @@ class LoginScreen extends StatelessWidget {
 
         // HomePage banner will be added here now: -
         CarouselSlider(
-            items: [
-              Card(
-                child: Image.network(
-                    'https://4.imimg.com/data4/WA/YP/GLADMIN-14324829/touch-screen-500x500.png'),
-              ),
-            ],
-            options: CarouselOptions(
-              height: 200,
-              autoPlay: true,
-              enableInfiniteScroll: true,
-            )),
+          items: [
+            Card(
+              child: Image.network(
+                  'https://4.imimg.com/data4/WA/YP/GLADMIN-14324829/touch-screen-500x500.png'),
+            ),
+          ],
+          options: CarouselOptions(
+            height: 200,
+            autoPlay: true,
+            enableInfiniteScroll: true,
+          ),
+        ),
+        FutureBuilder(
+          future: getImageUri(),
+          builder: (context, AsyncSnapshot snapshot) {
+            if (snapshot.hasData) {
+              log(snapshot.data);
+              return CircularProgressIndicator();
+            } else {
+              return CircularProgressIndicator();
+            }
+          },
+        ),
         Text(
           'Home Page Banner Here',
         ),
@@ -141,29 +175,18 @@ class LoginScreen extends StatelessWidget {
               ButtonBar(
                 alignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  MaterialButton(
-                    onPressed: () {},
-                    child: Row(
-                      children: <Widget>[
-                        Icon(Icons.help),
-                        Text('Help'),
-                      ],
-                    ),
-                    height: 60,
-                    minWidth: (screen_width / 2) - 30,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  MaterialButton(
-                    onPressed: () {},
-                    child: Row(
-                      children: <Widget>[
-                        Icon(Icons.group),
-                        Text('About Us'),
-                      ],
-                    ),
-                    height: 60,
-                    minWidth: (screen_width / 2) - 30,
-                    color: Theme.of(context).primaryColor,
+                  ButtonBar(
+                    children: <Widget>[
+                      TextButton.icon(
+                          onPressed: () {},
+                          icon: Icon(Icons.group),
+                          label: Text('About Us')),
+                      TextButton.icon(
+                        onPressed: () {},
+                        icon: Icon(Icons.help),
+                        label: Text('Help'),
+                      ),
+                    ],
                   ),
                 ],
               )
