@@ -1,6 +1,7 @@
 from flask import Flask, send_file, redirect
 from pathlib import Path
 import json
+import os
 
 
 app = Flask(__name__)
@@ -29,19 +30,23 @@ def serve_url():
 @app.route('/static/media/<image_tag>', methods=['GET'])
 def serve_image(image_tag):
     # first I have to check if the image exists
-    __exists = Path(f'/images/{image_tag}')
-    if __exists.is_file():
-        return send_file(f'/images/{image_tag}', mimetype='image/gif')
+    __exists = os.path.isfile(f'{Path(__file__).parent.absolute()}\\images\\{image_tag}')
+    # if __exists:
+        # print("exists")
+    if __exists:
+        return send_file((f'{Path(__file__).parent.absolute()}\\images\\{image_tag}'), mimetype='image/gif')
+        # return "image sent here"
     else:
-        # redirect to 404 error
-        return redirect(error404)
+    #     # redirect to 404 error
+    #     # return redirect("/404")
+        return "Image not exists or error"
 
 
-# error 404
-@app.route(404)
-def error404():
-    return json.dumps("404 error")
+# # error 404
+# @app.errorhandler(404)
+# def errornotfound():
+#     return "not found"
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
