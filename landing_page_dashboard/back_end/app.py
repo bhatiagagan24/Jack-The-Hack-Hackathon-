@@ -5,7 +5,7 @@ import json
 import os 
 from os.path import join, dirname, realpath
 from flask.globals import request
-
+import database_access
 
 app = Flask(__name__)
 
@@ -30,9 +30,19 @@ def upload_photo():
             __file_to_be_uploaded.save(os.path.join(FILE_PATH, file_name))
         except:
             print("error while svaing file")
+        # try except for uploading information to SQLite database
+        try:
+            db_upload_object = database_access.Image_Info_Insert(file_name)
+            db_upload_response = db_upload_object.uploading_image()
+            if db_upload_response == 1:
+                return json.dumps("File uploaded successfully and DB updated successfully")
+            else:
+                return json.dumps("error in script database_access as exception was encountered there")
+        except:
+            return json.dumps("error while inserting in the table")
         return json.dumps("file successfully uploaded")
     except:
-        return json.dumps("An error occured in code or file with this name already exists")
+        return json.dumps("An error occured while uploading the file")
 
 
 

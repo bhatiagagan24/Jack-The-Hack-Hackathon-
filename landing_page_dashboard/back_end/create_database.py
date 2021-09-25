@@ -14,7 +14,7 @@ class Create_Database:
     def create_table(self):
         try:
             con = sqlite3.connect('dashboard_database.db')
-            con.execute('''CREATE TABLE IF NOT EXISTS DataDashboard (ID INT, PHOTONAME TEXT PRIMARY KEY NOT NULL, CREATETIME TEXT NOT NULL)''')
+            con.execute('''CREATE TABLE IF NOT EXISTS DataDashboard (ID INTEGER PRIMARY KEY AUTOINCREMENT, PHOTONAME TEXT NOT NULL, CREATETIME TEXT NOT NULL)''')
             con.close()
             print('table created successfully')
         except:
