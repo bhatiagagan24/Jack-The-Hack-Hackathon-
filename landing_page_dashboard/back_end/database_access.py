@@ -197,9 +197,32 @@ class Shop_Data_Acccess(Airport_Data_Access):
             return -1
     
     # Function to Fetch Deals, Logo of Shop if it's Location is given to us
-    # def fetch_deals_logo(self, shop_location):
-    #     try:
-    #         location_code = self.fetch_airport_code(shop_location)
+    def fetch_deals_logo(self, shop_location):
+        try:
+            con = sqlite3.connect('dashboard_database.db')
+            cur = con.cursor()
+            if shop_location == 'all':
+                resp = con.execute('''SELECT * FROM ShopDeals''')
+                for res in resp:
+                    print(res)
+            else:
+                location_code = self.fetch_airport_code(shop_location)
+                # first I will find SHOP numbers in particular location
+                shop_code_list = []
+                resp1 = con.execute('''SELECT SHOPCODE FROM ShopList WHERE AIRPORTID=?''', (location_code,))
+                for u in resp1:
+                    shop_code_list.append(u[0])
+                print(shop_code_list)
+                final_result = []
+                for shop_codes in shop_code_list:
+                    resp2 = con.execute('''SELECT * FROM ShopDeals WHERE SHOPCODE=?''', (shop_codes,))
+                    for t in resp2:
+                        final_result.append(t)
+                print(final_result)
+            
+        except:
+            print("Error occured")
+            return -1
 
 
 
@@ -208,7 +231,8 @@ class Shop_Data_Acccess(Airport_Data_Access):
 
 temp_obj = Shop_Data_Acccess()
 # temp_obj.upload_shop_logo("google1.com", "Shop2", "Mumbai")
-temp_obj.upload_shop_deals("40% Off", "Shop1", "Delhi", "50 % off on everything you buy")
+# temp_obj.upload_shop_deals("40% Off", "Shop1", "Delhi", "50 % off on everything you buy")
+temp_obj.fetch_deals_logo('Mumbai')
 
 # temp_obj = Airport_Data_Access()
 # temp_obj.create_new_shop('Delhi', 'Shop1')
