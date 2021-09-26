@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:http/http.dart' as http;
 import 'package:smart_journey_experience/screens/app_deals.dart';
+import 'package:smart_journey_experience/screens/app_deals_food.dart';
 
 class HomeScreenPhotos {
   var photo_name;
@@ -147,7 +148,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 icon: Icon(Icons.shopping_bag_outlined),
                 label: Text('Shopping Deals')),
             TextButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                getAirportData();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => DealsFood(
+                            AirportList: this.AirportList,
+                          )),
+                );
+              },
               icon: Icon(Icons.food_bank_outlined),
               label: Text('Dining Deals'),
             ),
