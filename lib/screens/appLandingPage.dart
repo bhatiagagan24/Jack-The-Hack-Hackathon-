@@ -28,7 +28,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   var no_of_images = 0;
   var image_list = [];
-
+  List AirportList = [];
   Future<List<HomeScreenPhotos>> getImageUri() async {
     List<HomeScreenPhotos> name_list = [];
     var new_name_list = [];
@@ -56,6 +56,21 @@ class _LoginScreenState extends State<LoginScreen> {
     print("named list -> ");
     print(name_list[0]);
     return name_list;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getAirportData();
+  }
+
+  Future<void> getAirportData() async {
+    http.Response response =
+        await http.get(Uri.parse('http://192.168.1.22:5000/'));
+    //This line converts list inside string to List<Dynamic>
+    AirportList = (jsonDecode(response.body) as List<dynamic>).cast<String>();
+    // AirportList = response.body; List.
+    print(AirportList);
   }
 
   @override
@@ -110,7 +125,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Deals()),
+                    MaterialPageRoute(
+                        builder: (context) => Deals(
+                              AirportList: this.AirportList,
+                            )),
                   );
                 },
                 icon: Icon(Icons.shopping_bag_outlined),

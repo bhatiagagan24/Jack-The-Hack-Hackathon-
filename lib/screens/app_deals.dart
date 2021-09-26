@@ -1,17 +1,29 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 class Deals extends StatefulWidget {
-  const Deals({Key? key}) : super(key: key);
+  var AirportList;
+  Deals({Key? key, @required this.AirportList}) : super(key: key);
 
   @override
   _DealsState createState() => _DealsState();
 }
 
 class _DealsState extends State<Deals> {
-  String dropdownValue = 'IGI Airport 1';
+  @override
+  void initState() {
+    super.initState();
+    // getAirportData();
+    // getData();
+  }
+
   @override
   Widget build(BuildContext context) {
+    String? dropdownValue;
+    List AirportList = widget.AirportList;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.purple[200],
@@ -26,9 +38,9 @@ class _DealsState extends State<Deals> {
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.purple, width: 1),
                   borderRadius: BorderRadius.circular(15)),
-              child: DropdownButton<String>(
-                hint: Text("Choose Airport: "),
+              child: DropdownButton(
                 value: dropdownValue,
+                // hint: Text("Choose Airport: "),
                 icon: const Icon(Icons.arrow_drop_down),
                 iconSize: 24,
                 elevation: 16,
@@ -36,19 +48,24 @@ class _DealsState extends State<Deals> {
                 style: const TextStyle(color: Colors.deepPurple),
                 onChanged: (String? newValue) {
                   setState(() {
-                    dropdownValue = newValue!;
+                    dropdownValue = newValue;
+                    print(dropdownValue);
                   });
                 },
-                items: <String>[
-                  'IGI Airport 1',
-                  'IGI Airport 2',
-                  'IGI Airport 3',
-                  'IGI Airport 4'
-                ].map<DropdownMenuItem<String>>((String value) {
+                // items: <String>[
+                //   'IGI Airport 1',
+                //   'IGI Airport 2',
+                //   'IGI Airport 3',
+                //   'IGI Airport 4'
+                // ].map<DropdownMenuItem<String>>((String value) {
+                //   return DropdownMenuItem<String>(
+                //     value: value,
+                //     child: Text(value),
+                //   );
+                // }).toList(),
+                items: AirportList.map((valueItem) {
                   return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
+                      value: valueItem, child: Text(valueItem));
                 }).toList(),
               ),
             ),
@@ -109,4 +126,17 @@ class _DealsState extends State<Deals> {
           ),
         ]));
   }
+
+  // Future<void> getData() async {
+  //   var queryParameters = {"airport": "$dropdownValue"};
+  //   var uri = Uri.https("", "", queryParameters);
+  //   Response response = await get(uri);
+  //   Map map = jsonDecode(response.body);
+  // }
+
+  // Future<void> getAirportData() async {
+  //   Response response = await get(Uri.parse(""));
+  //   Map map = jsonDecode(response.body);
+  //   AirportList = map["Airport"];
+  // }
 }

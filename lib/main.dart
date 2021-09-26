@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.indigo,
       ),
       home: const HomePage(),
-      // home: const Deals(),
+      // home: Deals(),
       // home: const QRCodeScanner(),
       // home: const Assistance(),
     );
