@@ -167,8 +167,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: screen_width,
                       child: Card(
                         child: Image.network(
-                            "http://192.168.1.10:5000/static/media/" +
-                                snapshot.data[index].photo_name),
+                          "http://192.168.1.10:5000/static/media/" +
+                              snapshot.data[index].photo_name,
+                          fit: BoxFit.fill,
+                          width: screen_width,
+                        ),
                       ),
                     )
                   ],
