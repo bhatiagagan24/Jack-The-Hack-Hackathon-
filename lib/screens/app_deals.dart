@@ -18,82 +18,90 @@ class _DealsState extends State<Deals> {
           title: Text("Deals"),
           centerTitle: true,
         ),
-        body: Stack(children: <Widget>[
-          DropdownButton<String>(
-            alignment: Alignment.topCenter,
-            value: dropdownValue,
-            icon: const Icon(Icons.arrow_downward),
-            iconSize: 24,
-            elevation: 16,
-            style: const TextStyle(color: Colors.deepPurple),
-            underline: Container(
-              height: 2,
-              color: Colors.deepPurpleAccent,
-            ),
-            onChanged: (String? newValue) {
-              setState(() {
-                dropdownValue = newValue!;
-              });
-            },
-            items: <String>['One', 'Two', 'Free', 'Four']
-                .map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
-          ),
-          GridView.count(
-            crossAxisCount: 2,
-            children: <Widget>[
-              GestureDetector(
-                onTap: () {
-                  showModalBottomSheet<void>(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return Container(
-                        height: 200,
-                        child: Center(
-                          child: Text('This is the Modal Sheet'),
-                        ),
-                      );
-                    },
-                  );
+        body: Column(children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Container(
+              padding: EdgeInsets.only(left: 16, right: 16),
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.purple, width: 1),
+                  borderRadius: BorderRadius.circular(15)),
+              child: DropdownButton<String>(
+                hint: Text("Choose Airport: "),
+                value: dropdownValue,
+                icon: const Icon(Icons.arrow_drop_down),
+                iconSize: 24,
+                elevation: 16,
+                isExpanded: true,
+                style: const TextStyle(color: Colors.deepPurple),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    dropdownValue = newValue!;
+                  });
                 },
-                child: Container(
-                  //Container to resize the
-                  padding: EdgeInsets.all(10),
-                  height: 300,
-                  child: Card(
-                    margin: EdgeInsets.all(10),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        Padding(padding: EdgeInsets.all(10)),
-                        Container(
-                            //Container for Circular Image
-                            width: 80.0,
-                            height: 80.0,
-                            decoration: new BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: new DecorationImage(
-                                    fit: BoxFit.fill,
-                                    image: new NetworkImage(
-                                        "https://assets.turbologo.com/blog/en/2020/01/19084716/armani-logo-cover-958x575.png")))),
-                        Padding(padding: EdgeInsets.fromLTRB(0, 20, 20, 0)),
-                        Text(
-                          "Emporio Armani",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        )
-                      ],
+                items: <String>['One', 'Two', 'Free', 'Four']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+            ),
+          ),
+          Expanded(
+            child: GridView.count(
+              crossAxisCount: 2,
+              children: <Widget>[
+                GestureDetector(
+                  onTap: () {
+                    showModalBottomSheet<void>(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Container(
+                          height: 200,
+                          child: Center(
+                            child: Text('This is the Modal Sheet'),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  child: Container(
+                    //Container to resize the
+                    padding: EdgeInsets.all(10),
+                    height: 300,
+                    child: Card(
+                      margin: EdgeInsets.all(10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Column(
+                        children: <Widget>[
+                          Padding(padding: EdgeInsets.all(10)),
+                          Container(
+                              //Container for Circular Image
+                              width: 80.0,
+                              height: 80.0,
+                              decoration: new BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: new DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image: new NetworkImage(
+                                          "https://assets.turbologo.com/blog/en/2020/01/19084716/armani-logo-cover-958x575.png")))),
+                          Padding(padding: EdgeInsets.fromLTRB(0, 20, 20, 0)),
+                          Text(
+                            "Emporio Armani",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ]));
   }
