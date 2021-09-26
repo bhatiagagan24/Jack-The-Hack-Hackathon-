@@ -79,6 +79,23 @@ def serve_image(image_tag):
         return abort(404)
 
 
+
+
+
+
+@app.route('/airports/get', methods=['GET'])
+def get_airports():
+    airport_res_object = database_access.Airport_Data_Access()
+    airport_res = airport_res_object.fetch_airport_list()
+    # print(airport_res)
+    del airport_res_object
+    return json.dumps(airport_res)
+
+
+
+
+
+
 # when the route is not defined
 @app.errorhandler(404)
 def not_found(e):

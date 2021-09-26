@@ -51,6 +51,29 @@ class Image_Info_Insert:
             print('error in inserting the value in table')
             return -1
 
+class Airport_Data_Access:
+    # Normal constructor for fetching list of all airports
+    def __init__(self):
+        # return self.__fetch_airport_list()
+        pass
+    # Argument constructor for fetching deals wrt to airport
+    def fetch_airport_list(self):
+        print("Inside Function")
+        try:
+            con = sqlite3.connect('dashboard_database.db')
+            cur = con.cursor()
+            # one = con.execute("INSERT INTO AirportList VALUES(1, 'Delhi')")
+            # con.commit()
+            results = con.execute('''SELECT * FROM AirportList''')
+            final_res = {}
+            for res in results:
+                final_res[res[0]] = res[1]
+            return final_res
+        except:
+            print("error occured")
+            return -1
+
+
 
 # an example of how to fetch information from the table DataDashboard
 # 5 represents the number of rows I need
@@ -66,3 +89,6 @@ class Image_Info_Insert:
 
 # obj1 = Image_Info_Insert("img_temp1")
 # res = obj1.uploading_image()
+
+obj1 = Airport_Data_Access()
+obj1.fetch_airport_list()

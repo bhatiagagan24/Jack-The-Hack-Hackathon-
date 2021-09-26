@@ -20,10 +20,22 @@ class Create_Database:
         except:
             print('error in creating database')
             return -1
+    def create_table_airport(self):
+        try:
+            con = sqlite3.connect('dashboard_database.db')
+            con.execute('''CREATE TABLE IF NOT EXISTS AirportList (ID INTEGER PRIMARY KEY AUTOINCREMENT, AIRPORTNAME TEXT NOT NULL)''')
+            con.close()
+            print("airportlist table created successfully")
+        except:
+            print("error in creating airportlist table")
+            return -1
 
 
 # obj1 = Create_Database()
 # obj1.create_table()
     
+
+obj2 = Create_Database()
+obj2.create_table_airport()
 
 
