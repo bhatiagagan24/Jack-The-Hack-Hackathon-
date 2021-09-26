@@ -82,7 +82,7 @@ def serve_image(image_tag):
 
 
 
-
+# route to fetch all the airport data
 @app.route('/airports/get', methods=['GET'])
 def get_airports():
     airport_res_object = database_access.Airport_Data_Access()
@@ -90,6 +90,15 @@ def get_airports():
     # print(airport_res)
     del airport_res_object
     return json.dumps(airport_res)
+
+
+# route to add an airport
+@app.route('/airports/add', methods=['POST'])
+def add_airport():
+    pass
+
+
+
 
 
 
