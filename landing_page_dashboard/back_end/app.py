@@ -93,9 +93,32 @@ def get_airports():
 
 
 # route to add an airport
-@app.route('/airports/add', methods=['POST'])
+@app.route('/airports/add', methods=['GET'])
 def add_airport():
-    pass
+    new_airport_name = request.args.get('name')
+    airport_res_object = database_access.Airport_Data_Access()
+    airport_add_res = airport_res_object.create_new_airport(new_airport_name)
+    if airport_add_res == 1:
+        print("successfully added")
+        return json.dumps("1")
+    else:
+        print("add attempt unsuccessful")
+        return json.dumps("-1")
+
+    # pass
+@app.route('/deals/shopping', methods=['GET'])
+def return_deals():
+    # Deal d = new Deal(
+    #       Shop_name: ResList[i]["name"],
+    #       loc: ResList[i]["location"],
+    #       heading: ResList[i]["Heading"],
+    #       simple_text: ResList[i]["simple"],
+    #       photo: ResList[i]["photo"]);
+    #   DealList.add(d);
+    # }
+    return json.dumps([{
+        "name":"Shop_name","location":"Delhi","Heading":"abc","simple":"avd","photo":"https://raw.githubusercontent.com/Tech-closet/techclosetonline.github.io/main/logo_circular.png",
+    }])
 
 
 

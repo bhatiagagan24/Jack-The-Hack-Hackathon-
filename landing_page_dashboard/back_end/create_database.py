@@ -29,13 +29,51 @@ class Create_Database:
         except:
             print("error in creating airportlist table")
             return -1
-
+    
+    def create_airport_shop_database(self):
+        try:
+            con = sqlite3.connect('dashboard_database.db')
+            con.execute('''CREATE TABLE IF NOT EXISTS ShopList (SHOPNAME TEXT, AIRPORTID INT, SHOPCODE INTEGER PRIMARY KEY AUTOINCREMENT)''')
+            con.close()
+            print("ShopList Database Created Successfully")
+        except:
+            print("error in creating database ShopList")
+    def create_shop_logo_database(self):
+        try:
+            con = sqlite3.connect('dashboard_database.db')
+            con.execute('''CREATE TABLE IF NOT EXISTS ShopLogo (SHOPCODE INT, BRANDLOGOURL TEXT)''')
+            con.close()
+            print("ShopLogo Database Created Successfully")
+        except:
+            print("error in creating database ShopList")
+    def shop_login_credentials(self):
+        try:
+            con = sqlite3.connect('dashboard_database.db')
+            con.execute('''CREATE TABLE IF NOT EXISTS ShopCredentials (SHOPCODE INT, KEY TEXT)''')
+            con.close()
+            print("ShopCredentials Database Created Successfully")
+        except:
+            print("error in creating database ShopList")
+    def shop_deals_database(self):
+        try:
+            con = sqlite3.connect('dashboard_database.db')
+            con.execute('''CREATE TABLE IF NOT EXISTS ShopDeals (SHOPCODE INT, HEADING TEXT, DEALDESCRIPTION TEXT)''')
+            con.close()
+            print("ShopDeals Database Created Successfully")
+        except:
+            print("error in creating database ShopList")
+        
 
 # obj1 = Create_Database()
 # obj1.create_table()
     
 
 obj2 = Create_Database()
-obj2.create_table_airport()
+# obj2.create_table_airport()
+obj2.create_airport_shop_database()
+# obj2.create_shop_logo_database()
+# obj2.shop_login_credentials()
+# obj2.shop_deals_database()
+
 
 
