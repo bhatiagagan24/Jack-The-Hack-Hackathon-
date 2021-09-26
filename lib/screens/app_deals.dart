@@ -9,7 +9,7 @@ class Deals extends StatefulWidget {
 }
 
 class _DealsState extends State<Deals> {
-  String dropdownValue = 'One';
+  String dropdownValue = 'IGI Airport 1';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,8 +39,12 @@ class _DealsState extends State<Deals> {
                     dropdownValue = newValue!;
                   });
                 },
-                items: <String>['One', 'Two', 'Free', 'Four']
-                    .map<DropdownMenuItem<String>>((String value) {
+                items: <String>[
+                  'IGI Airport 1',
+                  'IGI Airport 2',
+                  'IGI Airport 3',
+                  'IGI Airport 4'
+                ].map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
                     child: Text(value),
