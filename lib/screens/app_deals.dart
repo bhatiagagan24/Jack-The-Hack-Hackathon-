@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:smart_journey_experience/SupportClasses/Deal.dart';
+import 'package:smart_journey_experience/SupportClasses/DealCard.dart';
 
 class Deals extends StatefulWidget {
   var AirportList;
@@ -14,13 +16,12 @@ class Deals extends StatefulWidget {
 
 class _DealsState extends State<Deals> {
   List AirportList = [];
-  // String? dropdownValue = 'All';
+
   @override
   void initState() {
     super.initState();
-    print("AirportList value: - ");
-    print(widget.AirportList);
     AirportList = widget.AirportList;
+    print(AirportList);
     // getAirportData();
     // getData();
   }
@@ -53,8 +54,6 @@ class _DealsState extends State<Deals> {
                 onChanged: (String? newValue) {
                   setState(() {
                     dropdownValue = newValue;
-                    print("Dropdown value: - ");
-                    print(dropdownValue);
                   });
                 },
                 // items: <String>[
@@ -76,72 +75,48 @@ class _DealsState extends State<Deals> {
             ),
           ),
           Expanded(
-            child: GridView.count(
-              crossAxisCount: 2,
-              children: <Widget>[
-                GestureDetector(
-                  onTap: () {
-                    showModalBottomSheet<void>(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Container(
-                          height: 200,
-                          child: Center(
-                            child: Text('This is the Modal Sheet'),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                  child: Container(
-                    //Container to resize the
-                    padding: EdgeInsets.all(10),
-                    height: 300,
-                    child: Card(
-                      margin: EdgeInsets.all(10),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: Column(
-                        children: <Widget>[
-                          Padding(padding: EdgeInsets.all(10)),
-                          Container(
-                              //Container for Circular Image
-                              width: 80.0,
-                              height: 80.0,
-                              decoration: new BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: new DecorationImage(
-                                      fit: BoxFit.fill,
-                                      image: new NetworkImage(
-                                          "https://assets.turbologo.com/blog/en/2020/01/19084716/armani-logo-cover-958x575.png")))),
-                          Padding(padding: EdgeInsets.fromLTRB(0, 20, 20, 0)),
-                          Text(
-                            "Emporio Armani",
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
+            child: FutureBuilder(
+                future: getData(dropdownValue),
+                builder: (BuildContext ctx, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData != true) {
+                    return Container(
+                        child: Center(
+                      child: Text("Nothing Loaded"),
+                    ));
+                  } else {
+                    return GridView.builder(
+                        itemCount: snapshot.data.length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2),
+                        itemBuilder: (BuildContext ct, index) {
+                          return DealCard(deal: snapshot.data[index]);
+                        });
+                  }
+                }),
           ),
         ]));
   }
 
-  // Future<void> getData() async {
-  //   var queryParameters = {"airport": "$dropdownValue"};
-  //   var uri = Uri.https("", "", queryParameters);
-  //   Response response = await get(uri);
-  //   Map map = jsonDecode(response.body);
-  // }
-
-  // Future<void> getAirportData() async {
-  //   Response response = await get(Uri.parse(""));
-  //   Map map = jsonDecode(response.body);
-  //   AirportList = map["Airport"];
-  // }
+  Future<List<Deal>> getData(String? dropdown) async {
+    List<Deal> DealList = [];
+    Map<String, String> queryParams = {"airport": "$dropdown"};
+    // var uri = Uri.parse('http://192.168.1.22:5000/');
+    String queryString = Uri(queryParameters: queryParams).query;
+    var requesturl = 'http://192.168.1.22:5000/?' + queryString;
+    var uri = Uri.parse(requesturl);
+    Response response = await get(uri);
+    var ResList = jsonDecode(response.body);
+    List<Deal> dealList = [];
+    for (var i = 0; i < ResList.length; i++) {
+      // print(ResList[i]["name"]);
+      Deal d = new Deal(
+          Shop_name: ResList[i]["name"],
+          loc: ResList[i]["location"],
+          heading: ResList[i]["Heading"],
+          simple_text: ResList[i]["simple"],
+          photo: ResList[i]["photo"]);
+      DealList.add(d);
+    }
+    return DealList;
+  }
 }
