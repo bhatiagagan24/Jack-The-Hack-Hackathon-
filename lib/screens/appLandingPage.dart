@@ -26,9 +26,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  var no_of_images = 0;
-  var image_list = [];
   List AirportList = [];
+
+  var temp_variable = 0;
+
   Future<List<HomeScreenPhotos>> getImageUri() async {
     List<HomeScreenPhotos> name_list = [];
     var new_name_list = [];
@@ -48,10 +49,6 @@ class _LoginScreenState extends State<LoginScreen> {
       name_list.add(temp1);
       new_name_list.add(respdata[i]['imageName']);
     }
-    setState() {
-      no_of_images = respdata.length;
-      image_list = new_name_list;
-    }
 
     print("named list -> ");
     print(name_list[0]);
@@ -60,17 +57,30 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
-    super.initState();
+    // super.initState();
     getAirportData();
   }
 
   Future<void> getAirportData() async {
-    http.Response response =
-        await http.get(Uri.parse('http://192.168.1.22:5000/'));
-    //This line converts list inside string to List<Dynamic>
-    AirportList = (jsonDecode(response.body) as List<dynamic>).cast<String>();
-    // AirportList = response.body; List.
-    print(AirportList);
+    var temp_AirportList = [];
+    // print("Inside get airport data");
+    // log("Inside get airport data");
+    final uri_for_airport_list =
+        Uri.parse('http://192.168.1.10:5000/airports/get');
+    http.Response resp = await http.get(uri_for_airport_list);
+    var respdata = json.decode(resp.body);
+    // print("Data fetched by getAirportData() -> ");
+    // print(respdata);
+    for (var i = 0; i < respdata.length; i++) {
+      temp_AirportList.add(respdata[i][1]);
+    }
+    // print("Temp airport list :- ");
+    // print(temp_AirportList);
+    setState(() {
+      AirportList = temp_AirportList;
+    });
+    // print("AirportList now: -");
+    // print(AirportList);
   }
 
   @override
@@ -123,6 +133,8 @@ class _LoginScreenState extends State<LoginScreen> {
             TextButton.icon(
                 // onPressed: () {},
                 onPressed: () {
+                  getAirportData();
+                  print("this is the temp var ${temp_variable}");
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -140,30 +152,6 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ],
         ),
-        // HomePage banner will be added here now: -
-
-        // ignore: avoid_unnecessary_containers
-        // SizedBox(
-        //   child: FutureBuilder(
-        //     builder:(BuildContext ctx, AsyncSnapshot snapshot) {
-        //       if
-        //     }),
-        // ),
-
-        // CarouselSlider(
-        //   items: [
-        //     // for(var i=0; i<)
-        //     Card(
-        //       child: Image.network(
-        //           'https://4.imimg.com/data4/WA/YP/GLADMIN-14324829/touch-screen-500x500.png'),
-        //     ),
-        //   ],
-        //   options: CarouselOptions(
-        //     height: 200,
-        //     autoPlay: true,
-        //     enableInfiniteScroll: true,
-        //   ),
-        // ),
         FutureBuilder(
           future: getImageUri(),
           builder: (context, AsyncSnapshot snapshot) {
@@ -201,59 +189,6 @@ class _LoginScreenState extends State<LoginScreen> {
         SingleChildScrollView(
           child: Column(
             children: [
-              // ButtonBar(
-              //   alignment: MainAxisAlignment.spaceEvenly,
-              //   children: <Widget>[
-              //     MaterialButton(
-              //       onPressed: () {
-              //         Navigator.push(
-              //           context,
-              //           MaterialPageRoute(builder: (context) => Deals()),
-              //         );
-              //       },
-              //       child: Row(
-              //         crossAxisAlignment: CrossAxisAlignment.center,
-              //         children: <Widget>[
-              //           Icon(Icons.shopping_cart),
-              //           Text(
-              //             'Shopping Deals',
-              //             // textAlign: TextAlign.center,
-              //           ),
-              //         ],
-              //       ),
-              //       height: 60,
-              //       minWidth: (screen_width / 2),
-              //       color: Theme.of(context).primaryColor,
-              //     ),
-              //   ],
-              // ),
-              // ButtonBar(
-              //   alignment: MainAxisAlignment.center,
-              //   children: <Widget>[
-              //     MaterialButton(
-              //       onPressed: () {
-              //         Navigator.push(
-              //           context,
-              //           MaterialPageRoute(builder: (context) => Deals()),
-              //         );
-              //       },
-              //       child: Row(
-              //         crossAxisAlignment: CrossAxisAlignment.center,
-              //         children: <Widget>[
-              //           Icon(Icons.food_bank_sharp),
-              //           Text(
-              //             'Food Deals',
-              //             // textAlign: TextAlign.center,
-              //           ),
-              //         ],
-              //       ),
-              //       height: 60,
-              //       minWidth: (screen_width / 2),
-              //       color: Theme.of(context).primaryColor,
-              //     ),
-              //   ],
-              // ),
-
               ButtonBar(
                 alignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[

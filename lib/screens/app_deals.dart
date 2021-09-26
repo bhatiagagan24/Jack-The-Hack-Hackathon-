@@ -13,9 +13,14 @@ class Deals extends StatefulWidget {
 }
 
 class _DealsState extends State<Deals> {
+  List AirportList = [];
+  // String? dropdownValue = 'All';
   @override
   void initState() {
     super.initState();
+    print("AirportList value: - ");
+    print(widget.AirportList);
+    AirportList = widget.AirportList;
     // getAirportData();
     // getData();
   }
@@ -23,7 +28,6 @@ class _DealsState extends State<Deals> {
   @override
   Widget build(BuildContext context) {
     String? dropdownValue;
-    List AirportList = widget.AirportList;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.purple[200],
@@ -49,6 +53,7 @@ class _DealsState extends State<Deals> {
                 onChanged: (String? newValue) {
                   setState(() {
                     dropdownValue = newValue;
+                    print("Dropdown value: - ");
                     print(dropdownValue);
                   });
                 },
