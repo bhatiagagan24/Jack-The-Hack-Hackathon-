@@ -4,6 +4,8 @@ import sqlite3
 from sqlite3.dbapi2 import Error
 import time
 
+from copy import copy, deepcopy 
+
 class DatabaseConnect:
     def __init__(self, db_name):
         self.database_name = db_name
@@ -146,12 +148,30 @@ class Shop_Data_Acccess(Airport_Data_Access):
             # ShopLogo (SHOPCODE INT, BRANDLOGOURL TEXT
             con = sqlite3.connect('dashboard_database.db')
             cur = con.cursor()
-            one = con.execute('''INSERT INTO ShopLogo(SHOPCODE, BRANDLOGOURL) VALUES(?, ?)''', (shop_code, shop_logo_url, ))
-            con.commit()
-            print("value inserted into shoplogo database successfully")
-            con.close()
+            # First I will check if the shopcode exists currently in th table ShopLogo or not
+            res1 = con.execute('''SELECT * FROM ShopLogo WHERE SHOPCODE=?''', (shop_code,))
+            resp_exists = []
+            for u in res1:
+                resp_exists.append(u)
+            
+            print("Response of select statement if exists -> ", resp_exists)
+
+            if len(resp_exists) == 0:
+                one = con.execute('''INSERT INTO ShopLogo(SHOPCODE, BRANDLOGOURL) VALUES(?, ?)''', (shop_code, shop_logo_url, ))
+                con.commit()
+                print("value inserted into shoplogo database successfully")
+                con.close()
+            
+            # Simce The logo already exists, I will use Update instead of Insert
+            else:
+                print("Inside update")
+                one = con.execute(f'''UPDATE ShopLogo SET BRANDLOGOURL=(?) WHERE SHOPCODE=(?)''', (shop_logo_url, shop_code, ))
+                con.commit()
+                print("update successful")
+                con.close()
             return 1
-        except:
+        except Error as e:
+            print(e)
             print("brand logo insert fail")
             return -1
 
@@ -212,14 +232,28 @@ class Shop_Data_Acccess(Airport_Data_Access):
                 resp1 = con.execute('''SELECT SHOPCODE FROM ShopList WHERE AIRPORTID=?''', (location_code,))
                 for u in resp1:
                     shop_code_list.append(u[0])
-                print(shop_code_list)
+                print("shop_code_list -> ", shop_code_list)
                 final_result = []
+    #             [{
+    #     "name":"Shop_name","location":"Delhi","Heading":"abc","simple":"avd","photo":"https://raw.githubusercontent.com/Tech-closet/techclosetonline.github.io/main/logo_circular.png",
+    # }]
                 for shop_codes in shop_code_list:
+                    temp_resp = {}
                     resp2 = con.execute('''SELECT * FROM ShopDeals WHERE SHOPCODE=?''', (shop_codes,))
                     for t in resp2:
-                        final_result.append(t)
+                        print("shop code right now -> ", shop_codes, end="\n")
+                        new_dict = deepcopy(temp_resp)
+                        resp_url = con.execute('''SELECT BRANDLOGOURL FROM ShopLogo WHERE SHOPCODE = ?''', (shop_codes, ))
+                        new_dict["Heading"] = t[1]
+                        new_dict["simple"] = t[2]
+                        for url in resp_url:
+                            new_dict["photo"] = url[0]
+                        resp_shop_name = con.execute('''SELECT SHOPNAME FROM ShopList WHERE SHOPCODE = ?''', (shop_codes, ))
+                        for names in resp_shop_name:
+                            new_dict["name"] =  names[0]
+                        final_result.append(new_dict)
                 print(final_result)
-            
+            con.close()
         except:
             print("Error occured")
             return -1
@@ -229,10 +263,10 @@ class Shop_Data_Acccess(Airport_Data_Access):
 
 
 
-temp_obj = Shop_Data_Acccess()
-# temp_obj.upload_shop_logo("google1.com", "Shop2", "Mumbai")
-# temp_obj.upload_shop_deals("40% Off", "Shop1", "Delhi", "50 % off on everything you buy")
-temp_obj.fetch_deals_logo('Mumbai')
+# temp_obj = Shop_Data_Acccess()
+# # temp_obj.upload_shop_logo("google2.com", "Shop2", "Mumbai")
+# # temp_obj.upload_shop_deals("40% Off", "Shop1", "Delhi", "50 % off on everything you buy")
+# temp_obj.fetch_deals_logo('Delhi')
 
 # temp_obj = Airport_Data_Access()
 # temp_obj.create_new_shop('Delhi', 'Shop1')
