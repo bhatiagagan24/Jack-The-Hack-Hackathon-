@@ -31,6 +31,6 @@
         </p>
         {/if}
     </h4>
-    <Button type="button" on:click="{sendingImages}"> <Label>This is the button</Label></Button>
+    <Button type="submit" on:click="{sendingImages}"> <Label>Upload Image</Label></Button>
 </form>
 </main>

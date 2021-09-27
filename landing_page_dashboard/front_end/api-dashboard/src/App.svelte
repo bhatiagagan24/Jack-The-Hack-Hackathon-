@@ -2,7 +2,7 @@
 	// export let name;
 	import HomeMenu from './components/HomeMenu.svelte';
 	import AppImageForm from './components/appImageForm.svelte';
-	
+	import Airports from './components/Airports.svelte';
 </script>
 
 <main>
@@ -11,6 +11,8 @@
 	<h3>Upload Images to Display them on App Home Screen</h3>
 	<!-- <h1>Hello {name}!</h1> -->
 	<AppImageForm></AppImageForm>
+	<hr>
+	<Airports></Airports>
 </main>
 
 <style>

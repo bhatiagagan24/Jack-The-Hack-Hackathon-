@@ -219,9 +219,11 @@ class Shop_Data_Acccess(Airport_Data_Access):
     # Function to Fetch Deals, Logo of Shop if it's Location is given to us
     def fetch_deals_logo(self, shop_location):
         try:
+            print("in fetch deals")
             con = sqlite3.connect('dashboard_database.db')
             cur = con.cursor()
             if shop_location == 'all':
+                print("in all")
                 resp = con.execute('''SELECT * FROM ShopDeals''')
                 for res in resp:
                     print(res)
@@ -254,6 +256,7 @@ class Shop_Data_Acccess(Airport_Data_Access):
                         final_result.append(new_dict)
                 print(final_result)
             con.close()
+            return final_result
         except:
             print("Error occured")
             return -1

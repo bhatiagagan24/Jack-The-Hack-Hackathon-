@@ -120,16 +120,27 @@ def return_deals():
     # }
     try:
         airport_name = request.args.get('airport')
-        print("airport name -> ", airport_name)
-        obj1 = database_access.Shop_Data_Acccess()
-        res = obj1.fetch_deals_logo(airport_name)
-        if res == -1:
-            raise Exception
+        if airport_name == 'All':
+            print("No argument passed")
+            obj1 = database_access.Shop_Data_Acccess()
+            res = obj1.fetch_deals_logo('all')
+            print(res)
+            if res == -1:
+                raise Exception
+            else:
+                del obj1
+                return json.dumps(res)
         else:
-            del obj1
-            return json.dumps(res)
+            print("airport name -> ", airport_name)
+            obj1 = database_access.Shop_Data_Acccess()
+            res = obj1.fetch_deals_logo(airport_name)
+            if res == -1:
+                raise Exception
+            else:
+                del obj1
+                return json.dumps(res)
     except Error as e:
-        return "Error"
+        return json.dumps("Error")
     # return json.dumps([{
     #     "name":"Shop_name","location":"Delhi","Heading":"abc","simple":"avd","photo":"https://raw.githubusercontent.com/Tech-closet/techclosetonline.github.io/main/logo_circular.png",
     # }])
