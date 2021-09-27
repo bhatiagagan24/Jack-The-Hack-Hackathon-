@@ -14,6 +14,7 @@ import 'package:smart_journey_experience/screens/app_deals.dart';
 import 'package:smart_journey_experience/screens/app_deals_food.dart';
 import 'package:smart_journey_experience/screens/app_help.dart';
 import 'package:smart_journey_experience/screens/app_about_us.dart';
+import 'app_Login.dart';
 
 class HomeScreenPhotos {
   var photo_name;
@@ -112,16 +113,19 @@ class _LoginScreenState extends State<LoginScreen> {
                       showModalBottomSheet<void>(
                         context: context,
                         builder: (BuildContext context) {
-                          return Container(
+                          return Center(
+                              child: Container(
+                            alignment: Alignment.center,
                             height: 200,
-                            child: Center(
-                              child: Text('This is the Modal Sheet'),
-                            ),
-                          );
+                            // child: Center(
+                            //   child: Text('This is the Modal Sheet'),
+                            // ),
+                            child: SignIn(),
+                          ));
                         },
                       );
                     },
-                    child: Text('Google Sign-in'),
+                    child: Text('Login'),
                     style: ElevatedButton.styleFrom(
                         primary: Colors.lightGreen.shade300),
                   ),
