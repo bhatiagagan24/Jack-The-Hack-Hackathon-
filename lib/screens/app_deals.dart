@@ -26,9 +26,9 @@ class _DealsState extends State<Deals> {
     // getData();
   }
 
+  String? dropdownValue;
   @override
   Widget build(BuildContext context) {
-    String? dropdownValue;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.purple[200],
@@ -53,7 +53,7 @@ class _DealsState extends State<Deals> {
                 style: const TextStyle(color: Colors.deepPurple),
                 onChanged: (String? newValue) {
                   setState(() {
-                    dropdownValue = newValue;
+                    dropdownValue = newValue!;
                   });
                 },
                 // items: <String>[

@@ -16,7 +16,7 @@ class DealsFood extends StatefulWidget {
 
 class _DealsFoodState extends State<DealsFood> {
   List AirportList = [];
-
+  String? dropdownValue;
   @override
   void initState() {
     super.initState();
@@ -28,7 +28,6 @@ class _DealsFoodState extends State<DealsFood> {
 
   @override
   Widget build(BuildContext context) {
-    String? dropdownValue;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.purple[200],
