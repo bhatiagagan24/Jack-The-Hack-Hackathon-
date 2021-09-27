@@ -12,6 +12,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:http/http.dart' as http;
 import 'package:smart_journey_experience/screens/app_deals.dart';
 import 'package:smart_journey_experience/screens/app_deals_food.dart';
+import 'package:smart_journey_experience/screens/app_help.dart';
+import 'package:smart_journey_experience/screens/app_about_us.dart';
 
 class HomeScreenPhotos {
   var photo_name;
@@ -206,11 +208,22 @@ class _LoginScreenState extends State<LoginScreen> {
                   ButtonBar(
                     children: <Widget>[
                       TextButton.icon(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AboutUS()),
+                            );
+                          },
                           icon: Icon(Icons.group),
                           label: Text('About Us')),
                       TextButton.icon(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Help()),
+                          );
+                        },
                         icon: Icon(Icons.help),
                         label: Text('Help'),
                       ),
