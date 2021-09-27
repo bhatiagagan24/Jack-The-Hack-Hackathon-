@@ -266,9 +266,9 @@ class Shop_Data_Acccess(Airport_Data_Access):
 
 
 
-# temp_obj = Shop_Data_Acccess()
-# # temp_obj.upload_shop_logo("google2.com", "Shop2", "Mumbai")
-# # temp_obj.upload_shop_deals("40% Off", "Shop1", "Delhi", "50 % off on everything you buy")
+temp_obj = Shop_Data_Acccess()
+temp_obj.upload_shop_logo("https://assets.turbologo.com/blog/en/2020/01/19084716/armani-logo-cover.png", "Shop2", "Mumbai")
+temp_obj.upload_shop_deals("40% Off", "Shop2", "Mumbai", "50 % off on everything you buy")
 # temp_obj.fetch_deals_logo('Delhi')
 
 # temp_obj = Airport_Data_Access()
