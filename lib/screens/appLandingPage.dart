@@ -73,6 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
     var respdata = json.decode(resp.body);
     // print("Data fetched by getAirportData() -> ");
     // print(respdata);
+    // temp_AirportList.add('All');
     for (var i = 0; i < respdata.length; i++) {
       temp_AirportList.add(respdata[i][1]);
     }
