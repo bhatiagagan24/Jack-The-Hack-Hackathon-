@@ -354,6 +354,7 @@ class Users:
     def return_past_trips(self, name, email):
         try:
             user_id = self.create_or_fetch_user(email, name)
+            user_id = user_id[0]
             print("user id -----------------------> ", user_id)
             if user_id == -1000:
                 raise Exception
