@@ -74,7 +74,18 @@ class _SignedInHomeState extends State<SignedInHome> {
               crossAxisCount: 2,
               children: <Widget>[
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AirportSelect(
+                                AirportList: widget.AirportList,
+                                user_name: widget.username,
+                                user_email: widget.email,
+                                route: "Accessibility",
+                              )),
+                    );
+                  },
                   child: Container(
                     //Container to resize the
                     padding: EdgeInsets.all(10),
