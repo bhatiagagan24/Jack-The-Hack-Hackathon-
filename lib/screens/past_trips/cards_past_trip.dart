@@ -6,9 +6,11 @@ import 'package:http/http.dart' as http;
 class CardsPastTrips extends StatefulWidget {
   var user_name;
   var user_email;
-  CardsPastTrips(
-      {Key? key, @required this.user_email, @required this.user_name})
-      : super(key: key);
+  CardsPastTrips({
+    Key? key,
+    @required this.user_email,
+    @required this.user_name,
+  }) : super(key: key);
 
   @override
   State<CardsPastTrips> createState() => _CardsPastTripsState();
