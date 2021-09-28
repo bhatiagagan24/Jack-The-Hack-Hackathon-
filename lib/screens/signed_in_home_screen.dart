@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import './app_airport_select.dart';
+import 'package:http/http.dart';
 
 class SignedInHome extends StatefulWidget {
   List AirportList;
@@ -18,15 +19,22 @@ class SignedInHome extends StatefulWidget {
 }
 
 class _SignedInHomeState extends State<SignedInHome> {
-  int selectedIndex = -1;
-  String? choosen_option;
-
   get AirportList => null;
+  Future<void> send_signedIn_user_data(var user_name, var user_email) async {
+    Map<String, String> queryParams = {
+      "user_name": "$user_name",
+      "user_email": "$user_email"
+    };
+    String queryString = Uri(queryParameters: queryParams).query;
+    var requesturl = 'http://192.168.1.10:5000//user/add/info?' + queryString;
+    var uri = Uri.parse(requesturl);
+    Response response = await get(uri);
+  }
+
   @override
   void initState() {
     // TODO: implement initState
-    print(widget.AirportList);
-    print("Email is -> ${widget.email}");
+    send_signedIn_user_data(widget.username, widget.email);
   }
 
   @override
@@ -35,7 +43,7 @@ class _SignedInHomeState extends State<SignedInHome> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Airport",
+          "${widget.username}'s DashBoard",
           style: TextStyle(
               fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
         ),
@@ -43,9 +51,10 @@ class _SignedInHomeState extends State<SignedInHome> {
         centerTitle: true,
       ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Padding(padding: EdgeInsets.all(10)),
+          SizedBox(
+            height: 10,
+          ),
           Padding(
             padding: const EdgeInsets.only(left: 20),
             child: Text(
@@ -56,82 +65,181 @@ class _SignedInHomeState extends State<SignedInHome> {
                   color: Colors.purple),
             ),
           ),
-          Padding(padding: EdgeInsets.all(10)),
-          Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: Text(
-              "Where are you flying from?",
-              style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.normal,
-                  color: Colors.purple[100]),
-            ),
+          SizedBox(
+            height: 10,
           ),
-          Padding(padding: EdgeInsets.all(10)),
           Expanded(
-              child: GridView.builder(
-                  itemCount: AirportList.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2),
-                  itemBuilder: (BuildContext ct, index) {
-                    return InkWell(
-                      onTap: () {
-                        setState(() {
-                          selectedIndex = index;
-                          choosen_option = AirportList[index];
-                        });
-                      },
-                      child: Container(
-                        //Container to resize the
-                        padding: EdgeInsets.all(20),
-                        child: Card(
-                          shape: (selectedIndex == index)
-                              ? RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  side: BorderSide(color: Colors.green))
-                              : RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                          child: Center(child: Text(AirportList[index])),
-                        ),
+            child: GridView.count(
+              crossAxisCount: 2,
+              children: <Widget>[
+                InkWell(
+                  onTap: () {},
+                  child: Container(
+                    //Container to resize the
+                    padding: EdgeInsets.all(10),
+                    child: Card(
+                      margin: EdgeInsets.all(10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
-                    );
-                  })),
-          MaterialButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => AirportSelect(
-                          AirportList: this.widget.AirportList,
-                          user_email: widget.email,
-                          user_name: widget.username,
-                        )),
-              );
-            },
-            child: Text('I want to Explor'),
-          ),
+                      child: Column(
+                        children: <Widget>[
+                          Padding(padding: EdgeInsets.all(10)),
+                          FaIcon(
+                            FontAwesomeIcons.wheelchair,
+                            color: Colors.purple[200],
+                          ),
+                          Padding(padding: EdgeInsets.fromLTRB(0, 20, 20, 0)),
+                          Text(
+                            "Accessibility",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: Container(
+                    height: 600,
+                    //Container to resize the
+                    padding: EdgeInsets.all(10),
+                    child: Card(
+                      margin: EdgeInsets.all(10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Column(
+                        children: <Widget>[
+                          Padding(padding: EdgeInsets.all(10)),
+                          FaIcon(
+                            FontAwesomeIcons.couch,
+                            color: Colors.purple[200],
+                          ),
+                          Padding(padding: EdgeInsets.fromLTRB(0, 20, 20, 0)),
+                          Text(
+                            "Lounges",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: Container(
+                    height: 600,
+                    //Container to resize the
+                    padding: EdgeInsets.all(10),
+                    child: Card(
+                      margin: EdgeInsets.all(10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Column(
+                        children: <Widget>[
+                          Padding(padding: EdgeInsets.all(10)),
+                          FaIcon(
+                            FontAwesomeIcons.plane,
+                            color: Colors.purple[200],
+                          ),
+                          Padding(padding: EdgeInsets.fromLTRB(0, 20, 20, 0)),
+                          Text(
+                            "Past Trips",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: Container(
+                    height: 600,
+                    //Container to resize the
+                    padding: EdgeInsets.all(10),
+                    child: Card(
+                      margin: EdgeInsets.all(10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Column(
+                        children: <Widget>[
+                          Padding(padding: EdgeInsets.all(10)),
+                          FaIcon(
+                            FontAwesomeIcons.plus,
+                            color: Colors.purple[200],
+                          ),
+                          Padding(padding: EdgeInsets.fromLTRB(0, 20, 20, 0)),
+                          Text(
+                            "Add a Trip",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: Container(
+                    height: 400,
+                    //Container to resize the
+                    padding: EdgeInsets.all(10),
+                    child: Card(
+                      margin: EdgeInsets.all(10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Column(
+                        children: <Widget>[
+                          Padding(padding: EdgeInsets.all(10)),
+                          FaIcon(
+                            FontAwesomeIcons.infoCircle,
+                            color: Colors.purple[200],
+                          ),
+                          Padding(padding: EdgeInsets.fromLTRB(0, 20, 20, 0)),
+                          Text(
+                            "Help",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          )
         ],
       ),
       bottomNavigationBar: Padding(
-        padding: EdgeInsets.all(8.0),
+        padding: EdgeInsets.fromLTRB(100, 0, 100, 20),
         child: ElevatedButton(
-          onPressed: () {
-            if (choosen_option!.isEmpty) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Please choose Airport')));
-            } else {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => AirportSelect(
-                            AirportList: this.AirportList,
-                            user_email: this.widget.email,
-                            user_name: this.widget.username,
-                          )));
-            }
-          },
-          child: Text('Next'),
+          style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20), // <-- Radius
+            ),
+          ),
+          onPressed: () {},
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              FaIcon(
+                FontAwesomeIcons.qrcode,
+                color: Colors.white,
+              ),
+              Text("Scan QR Code"),
+            ],
+          ),
         ),
       ),
     );

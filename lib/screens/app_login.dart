@@ -37,22 +37,16 @@ class _SignInState extends State<SignIn> {
     );
   }
 
-  Future<int> send_signedIn_user_data(var user_name, var user_email) async {
-    Map<String, String> queryParams = {
-      "user_name": "$user_name",
-      "user_email": "$user_email"
-    };
-    String queryString = Uri(queryParameters: queryParams).query;
-    var requesturl = 'http://192.168.1.10:5000/user/add/info?' + queryString;
-    var uri = Uri.parse(requesturl);
-    Response response = await get(uri);
-    var temp = jsonDecode(response.body);
-    // if( temp ==)
-    // return 1;
-    print(
-        " value of temp is -------------- -------------------- --------------------> ${temp}");
-    return 1;
-  }
+  // Future<void> send_signedIn_user_data(var user_name, var user_email) async {
+  //   Map<String, String> queryParams = {
+  //     "user_name": "$user_name",
+  //     "user_email": "$user_email"
+  //   };
+  //   String queryString = Uri(queryParameters: queryParams).query;
+  //   var requesturl = 'http://192.168.1.10:5000//user/add/info?' + queryString;
+  //   var uri = Uri.parse(requesturl);
+  //   Response response = await get(uri);
+  // }
 
   Future signIn(BuildContext context) async {
     final user = await GoogleSignInApi.login();
@@ -63,16 +57,13 @@ class _SignInState extends State<SignIn> {
       //user.displayName
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Welcome' + user.displayName!)));
-      var sign_in_func_result =
-          await send_signedIn_user_data(user.displayName, user.email);
-      if (sign_in_func_result == 1) {
-        return;
-      }
+      // send_signedIn_user_data(user.displayName, user.email);
       Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => SignedInHome(
-                AirportList: this.widget.AirportList,
+                // AirportList: this.widget.AirportList,
+                AirportList: ["Del", "del", "dsds"],
                 username: user.displayName,
                 email: user.email)),
       );
