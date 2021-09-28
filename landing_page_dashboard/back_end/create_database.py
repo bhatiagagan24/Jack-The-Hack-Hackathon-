@@ -91,7 +91,16 @@ class Create_Database:
         except Error as e:
             print("Error while creating FlightData -----------------> ", e)
 
+    def lounge_data(self):
+        try:
+            con = sqlite3.connect('dashboard_database.db')
+            con.execute('''CREATE TABLE IF NOT EXISTS LoungeData (LOUNGECODE INTEGER PRIMARY KEY AUTOINCREMENT, AIRPORTCODE INT, LOUNGENAME TEXT)''')
+            con.close()
+        except Error as e:
+            print("Error while creating LoungeData -------------------> ", e)
 
+obj1 = Create_Database()
+obj1.lounge_data()
 
 
 # obj1 = Create_Database()

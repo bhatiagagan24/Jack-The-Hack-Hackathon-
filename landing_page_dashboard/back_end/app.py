@@ -195,8 +195,9 @@ def fetch_all_users():
         else:
             # del obj1
             return json.dumps(final_response)
-    except:
+    except Error as e:
         # del obj1
+        print("error fetched ----> ", e)
         return json.dumps("ERROR IN FETCHING PAST TRIP DATA FROM SOURCE")
 
 
