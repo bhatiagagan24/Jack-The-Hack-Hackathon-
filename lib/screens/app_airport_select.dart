@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './app_assistance.dart';
 import 'package:smart_journey_experience/screens/app_flight_details.dart';
+import 'app_Lounge.dart';
 
 class AirportSelect extends StatefulWidget {
   List AirportList;
@@ -114,8 +115,31 @@ class _AirportSelectState extends State<AirportSelect> {
               if (widget.route == "Accessibility") {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Assistance()),
+                  MaterialPageRoute(
+                      builder: (context) => Assistance(
+                            user_name: widget.user_name,
+                            user_email: widget.user_email,
+                            airport: "$choosen_option",
+                          )),
                 );
+              } else if (widget.route == "Lounges") {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Lounge(
+                          user_name: widget.user_name,
+                          user_email: widget.user_email,
+                          airport: "$choosen_option")), //To CHange
+                );
+              } else if (widget.route == "Help") {
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //       builder: (context) => Assistance(
+                //           user_name: widget.user_name,
+                //           user_email: widget.user_email,
+                //           airport: "$choosen_option")), //To CHange
+                // );
               }
             }
           },

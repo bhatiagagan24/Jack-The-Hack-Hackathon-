@@ -2,7 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Assistance extends StatelessWidget {
-  const Assistance({Key? key}) : super(key: key);
+  String user_name;
+  String user_email;
+  String airport;
+  Assistance(
+      {Key? key,
+      required this.user_name,
+      required this.user_email,
+      required this.airport})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

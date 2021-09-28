@@ -113,7 +113,18 @@ class _SignedInHomeState extends State<SignedInHome> {
                   ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AirportSelect(
+                                AirportList: widget.AirportList,
+                                user_name: widget.username,
+                                user_email: widget.email,
+                                route: "Lounges",
+                              )),
+                    );
+                  },
                   child: Container(
                     height: 600,
                     //Container to resize the
@@ -200,7 +211,18 @@ class _SignedInHomeState extends State<SignedInHome> {
                   ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AirportSelect(
+                                AirportList: widget.AirportList,
+                                user_name: widget.username,
+                                user_email: widget.email,
+                                route: "Help",
+                              )),
+                    );
+                  },
                   child: Container(
                     height: 400,
                     //Container to resize the
