@@ -26,7 +26,7 @@ class _SignedInHomeState extends State<SignedInHome> {
       "user_email": "$user_email"
     };
     String queryString = Uri(queryParameters: queryParams).query;
-    var requesturl = 'http://192.168.1.10:5000//user/add/info?' + queryString;
+    var requesturl = 'http://192.168.1.10:5000/user/add/info?' + queryString;
     var uri = Uri.parse(requesturl);
     Response response = await get(uri);
   }
@@ -34,12 +34,12 @@ class _SignedInHomeState extends State<SignedInHome> {
   @override
   void initState() {
     // TODO: implement initState
-    send_signedIn_user_data(widget.username, widget.email);
   }
 
   @override
   Widget build(BuildContext context) {
     List AirportList = widget.AirportList;
+    send_signedIn_user_data(widget.username, widget.email);
     return Scaffold(
       appBar: AppBar(
         title: Text(
