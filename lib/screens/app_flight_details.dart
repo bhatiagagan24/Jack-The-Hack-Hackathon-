@@ -78,44 +78,44 @@ class _FlightDetailsState extends State<FlightDetails> {
                   border: OutlineInputBorder()),
             ),
           ),
-          Column(
-            children: <Widget>[
-              Text(
-                'Choose Departure Time',
-                style: TextStyle(
-                    fontStyle: FontStyle.italic,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 0.5),
-              ),
-              InkWell(
-                onTap: () {
-                  _selectTime(context);
-                },
-                child: Container(
-                  margin: EdgeInsets.all(10),
-                  // width: _width / 1.7,
-                  // height: _height / 9,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(color: Colors.grey[200]),
-                  child: TextFormField(
-                    style: TextStyle(fontSize: 40),
-                    textAlign: TextAlign.center,
-                    onSaved: (String? val) {
-                      _setTime = "$val";
-                    },
-                    enabled: false,
-                    keyboardType: TextInputType.text,
-                    controller: _timeController,
-                    decoration: InputDecoration(
-                        disabledBorder:
-                            UnderlineInputBorder(borderSide: BorderSide.none),
-                        // labelText: 'Time',
-                        contentPadding: EdgeInsets.all(5)),
-                  ),
-                ),
-              ),
-            ],
-          )
+          // Column(
+          //   children: <Widget>[
+          //     Text(
+          //       'Choose Departure Time',
+          //       style: TextStyle(
+          //           fontStyle: FontStyle.italic,
+          //           fontWeight: FontWeight.w600,
+          //           letterSpacing: 0.5),
+          //     ),
+          //     InkWell(
+          //       onTap: () {
+          //         _selectTime(context);
+          //       },
+          //       child: Container(
+          //         margin: EdgeInsets.all(10),
+          //         // width: _width / 1.7,
+          //         // height: _height / 9,
+          //         alignment: Alignment.center,
+          //         decoration: BoxDecoration(color: Colors.grey[200]),
+          //         child: TextFormField(
+          //           style: TextStyle(fontSize: 40),
+          //           textAlign: TextAlign.center,
+          //           onSaved: (String? val) {
+          //             _setTime = "$val";
+          //           },
+          //           enabled: false,
+          //           keyboardType: TextInputType.text,
+          //           controller: _timeController,
+          //           decoration: InputDecoration(
+          //               disabledBorder:
+          //                   UnderlineInputBorder(borderSide: BorderSide.none),
+          //               // labelText: 'Time',
+          //               contentPadding: EdgeInsets.all(5)),
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // )
         ],
       ),
       bottomNavigationBar: Padding(
