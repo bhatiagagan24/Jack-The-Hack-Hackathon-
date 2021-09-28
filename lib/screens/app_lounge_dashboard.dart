@@ -21,10 +21,11 @@ class LoungeDashboard extends StatelessWidget {
       // "email": "$user_email"
     };
     String queryString = Uri(queryParameters: queryParams).query;
-    var requesturl = 'http://192.168.1.10:5000/user/add/info?' + queryString;
+    var requesturl = 'http://192.168.1.10:5000/food/fetch?' + queryString;
     var uri = Uri.parse(requesturl);
     Response response = await get(uri);
     food_list = (jsonDecode(response.body) as List<dynamic>).cast<String>();
+    print(food_list);
   }
 
   @override

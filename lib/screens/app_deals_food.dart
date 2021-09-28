@@ -101,7 +101,7 @@ class _DealsFoodState extends State<DealsFood> {
     Map<String, String> queryParams = {"airport": "$dropdown"};
     // var uri = Uri.parse('http://192.168.1.22:5000/');
     String queryString = Uri(queryParameters: queryParams).query;
-    var requesturl = 'http://192.168.1.22:5000/?' + queryString;
+    var requesturl = 'http://192.168.1.10:5000/?' + queryString;
     var uri = Uri.parse(requesturl);
     Response response = await get(uri);
     var ResList = jsonDecode(response.body);

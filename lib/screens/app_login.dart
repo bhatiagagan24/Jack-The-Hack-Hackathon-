@@ -63,8 +63,8 @@ class _SignInState extends State<SignIn> {
         context,
         MaterialPageRoute(
             builder: (context) => SignedInHome(
-                // AirportList: this.widget.AirportList,
-                AirportList: ["Del", "del", "dsds"],
+                AirportList: this.widget.AirportList,
+                // AirportList: ["Del", "del", "dsds"],
                 username: user.displayName,
                 email: user.email)),
       );

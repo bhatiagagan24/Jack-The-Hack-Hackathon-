@@ -127,6 +127,7 @@ class _AirportSelectState extends State<AirportSelect> {
                           )),
                 );
               } else if (widget.route == "Lounges") {
+                get_Lounge_data(choosen_option);
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -160,9 +161,10 @@ class _AirportSelectState extends State<AirportSelect> {
       // "email": "$user_email"
     };
     String queryString = Uri(queryParameters: queryParams).query;
-    var requesturl = 'http://192.168.1.10:5000/user/add/info?' + queryString;
+    var requesturl = 'http://192.168.1.10:5000/lounge/fetch?' + queryString;
     var uri = Uri.parse(requesturl);
     Response response = await get(uri);
+    print(response.body);
     lounge_list = (jsonDecode(response.body) as List<dynamic>).cast<String>();
   }
 }
