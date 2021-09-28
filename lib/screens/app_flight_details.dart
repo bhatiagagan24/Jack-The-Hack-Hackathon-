@@ -4,7 +4,13 @@ import 'package:http/http.dart';
 
 class FlightDetails extends StatefulWidget {
   String? flight_src;
-  FlightDetails({Key? key, this.flight_src}) : super(key: key);
+  String user_name, user_email;
+  FlightDetails(
+      {Key? key,
+      this.flight_src,
+      required this.user_name,
+      required this.user_email})
+      : super(key: key);
 
   @override
   _FlightDetailsState createState() => _FlightDetailsState();
@@ -38,6 +44,8 @@ class _FlightDetailsState extends State<FlightDetails> {
   @override
   Widget build(BuildContext context) {
     String flight_src = "${widget.flight_src}";
+    String user_name = widget.user_name;
+    String user_email = widget.user_email;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -114,7 +122,7 @@ class _FlightDetailsState extends State<FlightDetails> {
         padding: EdgeInsets.all(8.0),
         child: ElevatedButton(
           onPressed: () {
-            sendData(_flightno.text, _timeController.text, flight_src);
+            sendData(_flightno.text, user_name, user_email);
             // Navigator.push(
             //   context,
             //   MaterialPageRoute(builder: (context) => FlightDetails()),
@@ -127,11 +135,11 @@ class _FlightDetailsState extends State<FlightDetails> {
   }
 
   Future<void> sendData(
-      String? flight_number, String? flight_time, String? flight_src) async {
+      String? flight_number, String? user_name, String? user_email) async {
     Map<String, String> queryParams = {
       "flight_number": "$flight_number",
-      "flight_time": "$flight_time",
-      "flight_src": "$flight_src"
+      "user_name": "$user_name",
+      "user_email": "$user_email"
     };
     // var uri = Uri.parse('http://192.168.1.22:5000/');
     String queryString = Uri(queryParameters: queryParams).query;

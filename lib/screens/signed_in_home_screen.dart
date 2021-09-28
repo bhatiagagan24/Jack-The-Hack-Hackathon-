@@ -94,8 +94,11 @@ class _SignedInHomeState extends State<SignedInHome> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>
-                        AirportSelect(AirportList: this.widget.AirportList)),
+                    builder: (context) => AirportSelect(
+                          AirportList: this.widget.AirportList,
+                          user_email: '',
+                          user_name: '',
+                        )),
               );
             },
             child: Text('I want to Explor'),
@@ -113,8 +116,11 @@ class _SignedInHomeState extends State<SignedInHome> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          AirportSelect(AirportList: this.AirportList)));
+                      builder: (context) => AirportSelect(
+                            AirportList: this.AirportList,
+                            user_email: '',
+                            user_name: '',
+                          )));
             }
           },
           child: Text('Next'),
