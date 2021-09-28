@@ -37,6 +37,10 @@ class _DealsState extends State<Deals> {
         ),
         body: Column(children: <Widget>[
           Padding(
+            padding: EdgeInsets.all(10),
+          ),
+          Text('Select The Airport From Drop Down Below'),
+          Padding(
             padding: const EdgeInsets.all(20.0),
             child: Container(
               padding: EdgeInsets.only(left: 16, right: 16),
@@ -102,13 +106,13 @@ class _DealsState extends State<Deals> {
     Map<String, String> queryParams = {"airport": "$dropdown"};
     // var uri = Uri.parse('http://192.168.1.22:5000/');
     String queryString = Uri(queryParameters: queryParams).query;
-    var requesturl = 'http://192.168.1.22:5000/?' + queryString;
+    var requesturl = 'http://192.168.1.10:5000/deals/shopping?' + queryString;
     var uri = Uri.parse(requesturl);
     Response response = await get(uri);
     var ResList = jsonDecode(response.body);
     List<Deal> dealList = [];
     for (var i = 0; i < ResList.length; i++) {
-      // print(ResList[i]["name"]);
+      print(ResList[i]["name"]);
       Deal d = new Deal(
           Shop_name: ResList[i]["name"],
           loc: ResList[i]["location"],
