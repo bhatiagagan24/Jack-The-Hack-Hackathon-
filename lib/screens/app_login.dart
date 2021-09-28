@@ -7,6 +7,7 @@ import 'package:smart_journey_experience/API/google_signin_api.dart';
 import 'package:http/http.dart';
 import 'package:smart_journey_experience/screens/app_airport_select.dart';
 import 'package:smart_journey_experience/screens/signed_in_home_screen.dart';
+import 'package:smart_journey_experience/screens/appLandingPage.dart';
 
 class SignIn extends StatefulWidget {
   List AirportList;
@@ -67,6 +68,7 @@ class _SignInState extends State<SignIn> {
                 username: user.displayName,
                 email: user.email)),
       );
+
       // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> LoggedInPage(user:User)));
     }
   }

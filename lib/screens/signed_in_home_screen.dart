@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import './app_airport_select.dart';
 import 'package:http/http.dart';
-import 'past_trips/cards_past_trip.dart';
+import 'package:smart_journey_experience/screens/appLandingPage.dart';
 
 class SignedInHome extends StatefulWidget {
   List AirportList;
@@ -74,7 +74,18 @@ class _SignedInHomeState extends State<SignedInHome> {
               crossAxisCount: 2,
               children: <Widget>[
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AirportSelect(
+                                AirportList: widget.AirportList,
+                                user_name: widget.username,
+                                user_email: widget.email,
+                                route: "Accessibility",
+                              )),
+                    );
+                  },
                   child: Container(
                     //Container to resize the
                     padding: EdgeInsets.all(10),
@@ -131,12 +142,7 @@ class _SignedInHomeState extends State<SignedInHome> {
                   ),
                 ),
                 InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => CardsPastTrips()),
-                    );
-                  },
+                  onTap: () {},
                   child: Container(
                     height: 600,
                     //Container to resize the

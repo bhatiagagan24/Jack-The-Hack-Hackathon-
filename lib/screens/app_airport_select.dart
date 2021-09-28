@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-
+import './app_assistance.dart';
 import 'package:smart_journey_experience/screens/app_flight_details.dart';
 
 class AirportSelect extends StatefulWidget {
   List AirportList;
-  String user_name, user_email;
+  String user_name, user_email, route;
   AirportSelect(
       {Key? key,
       required this.AirportList,
       required this.user_name,
-      required this.user_email})
+      required this.user_email,
+      required this.route})
       : super(key: key);
 
   @override
@@ -30,6 +31,7 @@ class _AirportSelectState extends State<AirportSelect> {
     List AirportList = widget.AirportList;
     String user_name = widget.user_name;
     String user_email = widget.user_email;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -109,14 +111,12 @@ class _AirportSelectState extends State<AirportSelect> {
               ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('Please choose Airport')));
             } else {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => FlightDetails(
-                        flight_src: choosen_option,
-                        user_name: user_name,
-                        user_email: user_email)),
-              );
+              if (widget.route == "Accessibility") {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Assistance()),
+                );
+              }
             }
           },
           child: Text('Next'),
