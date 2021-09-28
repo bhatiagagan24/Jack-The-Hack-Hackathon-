@@ -144,15 +144,19 @@ def add_user():
     try:
         user_name = request.args.get('username')
         user_email = request.args.get('email')
+        print("username ------->  ", user_name)
+        print("user_email -------------> ", user_email)
         adding_users_obj = database_access.Users()
         final_resp_from_obj = adding_users_obj.create_or_fetch_user(user_email, user_name)
         if final_resp_from_obj == -1000:
             raise Exception
         print(f"user_name -> {user_name} :: user_email -> {user_email}")
         del final_resp_from_obj
-        return 1
-    except:
+        return "1"
+    except Error as e:
+        print("error --------------------------> ", e)
         del adding_users_obj
+        print("error here")
         return json.dumps("Error in registering the user on the platform")
 
 

@@ -320,15 +320,15 @@ class Users:
                 for k in m:
                     user_id.append(k)
             # User does not exists
-            print(k)
+            # print(k)
             if len(user_id) == 0:
                 print("user does not exists")
                 res2 = con.execute('''INSERT INTO Users(Username, Email) VALUES (?, ?)''', (name, email, ))
                 con.commit()
                 con.close()
                 self.create_or_fetch_user(email, name)
-            print(k)
-            return k
+            print(user_id)
+            return user_id
         except Error as e:
             print(e)
             return -1000
