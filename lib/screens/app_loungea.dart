@@ -5,10 +5,12 @@ import 'package:smart_journey_experience/screens/app_flight_details.dart';
 
 class Lounge extends StatefulWidget {
   String user_name, user_email;
+  List lounge_list;
   Lounge({
     Key? key,
     required this.user_name,
     required this.user_email,
+    required this.lounge_list,
   }) : super(key: key);
 
   @override
@@ -21,11 +23,7 @@ class _LoungeState extends State<Lounge> {
 
   @override
   Widget build(BuildContext context) {
-    List lounge_list = [
-      "Plaza Premium Lounge",
-      "Plaza Premium Lounge",
-      "Plaza Premium Lounge"
-    ];
+    List lounge_list = widget.lounge_list;
 
     return Stack(
       children: [

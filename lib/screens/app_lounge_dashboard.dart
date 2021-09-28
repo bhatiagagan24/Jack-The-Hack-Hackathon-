@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:http/http.dart';
+import 'package:smart_journey_experience/screens/app_food.dart';
 
 class LoungeDashboard extends StatelessWidget {
   String user_name, user_email;
@@ -10,6 +14,18 @@ class LoungeDashboard extends StatelessWidget {
       required this.user_email,
       required this.name})
       : super(key: key);
+  List food_list = [];
+  Future<void> get_food_data(var loungename) async {
+    Map<String, String> queryParams = {
+      "loungename": "$loungename",
+      // "email": "$user_email"
+    };
+    String queryString = Uri(queryParameters: queryParams).query;
+    var requesturl = 'http://192.168.1.10:5000/user/add/info?' + queryString;
+    var uri = Uri.parse(requesturl);
+    Response response = await get(uri);
+    food_list = (jsonDecode(response.body) as List<dynamic>).cast<String>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +104,15 @@ class LoungeDashboard extends StatelessWidget {
                     ),
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      get_food_data(this.name);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FoodItems(
+                                    food_items: this.food_list,
+                                  )));
+                    },
                     child: Container(
                       //Container to resize the
                       padding: EdgeInsets.all(20),

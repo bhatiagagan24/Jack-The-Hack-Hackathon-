@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import './app_assistance.dart';
 import 'package:smart_journey_experience/screens/app_flight_details.dart';
 // import 'app_lounge.dart';
 import 'app_loungea.dart';
+import 'package:http/http.dart';
 
 class AirportSelect extends StatefulWidget {
   List AirportList;
@@ -22,6 +25,7 @@ class AirportSelect extends StatefulWidget {
 class _AirportSelectState extends State<AirportSelect> {
   int selectedIndex = -1;
   String? choosen_option;
+  List<String> lounge_list = [];
   @override
   void initState() {
     // TODO: implement initState
@@ -33,7 +37,6 @@ class _AirportSelectState extends State<AirportSelect> {
     List AirportList = widget.AirportList;
     String user_name = widget.user_name;
     String user_email = widget.user_email;
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -130,6 +133,7 @@ class _AirportSelectState extends State<AirportSelect> {
                       builder: (context) => Lounge(
                             user_name: widget.user_name,
                             user_email: widget.user_email,
+                            lounge_list: this.lounge_list,
                           )), //To CHange
                 );
               } else if (widget.route == "Help") {
@@ -148,5 +152,17 @@ class _AirportSelectState extends State<AirportSelect> {
         ),
       ),
     );
+  }
+
+  Future<void> get_Lounge_data(var airport) async {
+    Map<String, String> queryParams = {
+      "airport": "$airport",
+      // "email": "$user_email"
+    };
+    String queryString = Uri(queryParameters: queryParams).query;
+    var requesturl = 'http://192.168.1.10:5000/user/add/info?' + queryString;
+    var uri = Uri.parse(requesturl);
+    Response response = await get(uri);
+    lounge_list = (jsonDecode(response.body) as List<dynamic>).cast<String>();
   }
 }
