@@ -5,10 +5,15 @@ import 'package:smart_journey_experience/API/google_signin_api.dart';
 import 'package:http/http.dart';
 import 'package:smart_journey_experience/screens/app_airport_select.dart';
 
-class SignIn extends StatelessWidget {
-  var AirportList;
-  SignIn({Key? key, this.AirportList}) : super(key: key);
+class SignIn extends StatefulWidget {
+  List AirportList;
+  SignIn({Key? key, required this.AirportList}) : super(key: key);
 
+  @override
+  State<SignIn> createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +59,7 @@ class SignIn extends StatelessWidget {
         context,
         MaterialPageRoute(
             builder: (context) => AirportSelect(
-                  AirportList: this.AirportList,
+                  AirportList: this.widget.AirportList,
                 )),
       );
       // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> LoggedInPage(user:User)));

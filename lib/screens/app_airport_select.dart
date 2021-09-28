@@ -14,6 +14,12 @@ class _AirportSelectState extends State<AirportSelect> {
   int selectedIndex = -1;
   String? choosen_option;
   @override
+  void initState() {
+    // TODO: implement initState
+    print(widget.AirportList);
+  }
+
+  @override
   Widget build(BuildContext context) {
     List AirportList = widget.AirportList;
     return Scaffold(

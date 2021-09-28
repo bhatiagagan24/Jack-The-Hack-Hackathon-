@@ -135,7 +135,7 @@ class _FlightDetailsState extends State<FlightDetails> {
     };
     // var uri = Uri.parse('http://192.168.1.22:5000/');
     String queryString = Uri(queryParameters: queryParams).query;
-    var requesturl = 'http://192.168.1.22:5000/?' + queryString;
+    var requesturl = 'http://192.168.1.10:5000/user/add/trip' + queryString;
     var uri = Uri.parse(requesturl);
     Response response = await get(uri);
   }
