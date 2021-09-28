@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:smart_journey_experience/screens/past_trips/cards_past_trip.dart';
 import './app_airport_select.dart';
 import 'package:http/http.dart';
 import 'package:smart_journey_experience/screens/appLandingPage.dart';
@@ -23,8 +24,8 @@ class _SignedInHomeState extends State<SignedInHome> {
   get AirportList => null;
   Future<void> send_signedIn_user_data(var user_name, var user_email) async {
     Map<String, String> queryParams = {
-      "user_name": "$user_name",
-      "user_email": "$user_email"
+      "username": "$user_name",
+      "email": "$user_email"
     };
     String queryString = Uri(queryParameters: queryParams).query;
     var requesturl = 'http://192.168.1.10:5000/user/add/info?' + queryString;
@@ -153,7 +154,16 @@ class _SignedInHomeState extends State<SignedInHome> {
                   ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CardsPastTrips(
+                                user_name: widget.username,
+                                user_email: widget.email,
+                              )),
+                    );
+                  },
                   child: Container(
                     height: 600,
                     //Container to resize the
