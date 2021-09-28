@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 
-import 'package:smart_journey_experience/screens/app_flight_details.dart';
+import './app_airport_select.dart';
 
-class AirportSelect extends StatefulWidget {
+class SignedInHome extends StatefulWidget {
   List AirportList;
-  AirportSelect({Key? key, required this.AirportList}) : super(key: key);
+  SignedInHome({Key? key, required this.AirportList}) : super(key: key);
 
   @override
-  _AirportSelectState createState() => _AirportSelectState();
+  _SignedInHomeState createState() => _SignedInHomeState();
 }
 
-class _AirportSelectState extends State<AirportSelect> {
+class _SignedInHomeState extends State<SignedInHome> {
   int selectedIndex = -1;
   String? choosen_option;
+
+  get AirportList => null;
   @override
   void initState() {
     // TODO: implement initState
@@ -88,8 +90,15 @@ class _AirportSelectState extends State<AirportSelect> {
                     );
                   })),
           MaterialButton(
-            onPressed: () {},
-            child: Text('I want to Explore'),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        AirportSelect(AirportList: this.widget.AirportList)),
+              );
+            },
+            child: Text('I want to Explor'),
           ),
         ],
       ),
@@ -102,12 +111,10 @@ class _AirportSelectState extends State<AirportSelect> {
                   SnackBar(content: Text('Please choose Airport')));
             } else {
               Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => FlightDetails(
-                          flight_src: choosen_option,
-                        )),
-              );
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          AirportSelect(AirportList: this.AirportList)));
             }
           },
           child: Text('Next'),

@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smart_journey_experience/API/google_signin_api.dart';
 import 'package:http/http.dart';
 import 'package:smart_journey_experience/screens/app_airport_select.dart';
+import 'package:smart_journey_experience/screens/signed_in_home_screen.dart';
 
 class SignIn extends StatefulWidget {
   List AirportList;
@@ -58,7 +59,7 @@ class _SignInState extends State<SignIn> {
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => AirportSelect(
+            builder: (context) => SignedInHome(
                   AirportList: this.widget.AirportList,
                 )),
       );
