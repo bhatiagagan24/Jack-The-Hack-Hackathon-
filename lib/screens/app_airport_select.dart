@@ -4,7 +4,13 @@ import 'package:smart_journey_experience/screens/app_flight_details.dart';
 
 class AirportSelect extends StatefulWidget {
   List AirportList;
-  AirportSelect({Key? key, required this.AirportList}) : super(key: key);
+  String user_name, user_email;
+  AirportSelect(
+      {Key? key,
+      required this.AirportList,
+      required this.user_name,
+      required this.user_email})
+      : super(key: key);
 
   @override
   _AirportSelectState createState() => _AirportSelectState();
@@ -22,6 +28,8 @@ class _AirportSelectState extends State<AirportSelect> {
   @override
   Widget build(BuildContext context) {
     List AirportList = widget.AirportList;
+    String user_name = widget.user_name;
+    String user_email = widget.user_email;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -101,8 +109,9 @@ class _AirportSelectState extends State<AirportSelect> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => FlightDetails(
-                          flight_src: choosen_option,
-                        )),
+                        flight_src: choosen_option,
+                        user_name: user_name,
+                        user_email: user_email)),
               );
             }
           },
