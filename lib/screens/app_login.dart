@@ -35,16 +35,16 @@ class _SignInState extends State<SignIn> {
     );
   }
 
-  Future<void> send_signedIn_user_data(var user_name, var user_email) async {
-    Map<String, String> queryParams = {
-      "user_name": "$user_name",
-      "user_email": "$user_email"
-    };
-    String queryString = Uri(queryParameters: queryParams).query;
-    var requesturl = 'http://192.168.1.10:5000//user/add/info?' + queryString;
-    var uri = Uri.parse(requesturl);
-    Response response = await get(uri);
-  }
+  // Future<void> send_signedIn_user_data(var user_name, var user_email) async {
+  //   Map<String, String> queryParams = {
+  //     "user_name": "$user_name",
+  //     "user_email": "$user_email"
+  //   };
+  //   String queryString = Uri(queryParameters: queryParams).query;
+  //   var requesturl = 'http://192.168.1.10:5000//user/add/info?' + queryString;
+  //   var uri = Uri.parse(requesturl);
+  //   Response response = await get(uri);
+  // }
 
   Future signIn(BuildContext context) async {
     final user = await GoogleSignInApi.login();
@@ -55,13 +55,13 @@ class _SignInState extends State<SignIn> {
       //user.displayName
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Welcome' + user.displayName!)));
-      send_signedIn_user_data(user.displayName, user.email);
+      // send_signedIn_user_data(user.displayName, user.email);
       Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => SignedInHome(
-                AirportList: this.widget.AirportList,
-                // AirportList: ["Del", "del", "dsds"],
+                // AirportList: this.widget.AirportList,
+                AirportList: ["Del", "del", "dsds"],
                 username: user.displayName,
                 email: user.email)),
       );

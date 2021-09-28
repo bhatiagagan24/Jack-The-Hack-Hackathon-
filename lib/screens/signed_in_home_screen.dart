@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import './app_airport_select.dart';
+import 'package:http/http.dart';
 
 class SignedInHome extends StatefulWidget {
   List AirportList;
@@ -19,11 +20,21 @@ class SignedInHome extends StatefulWidget {
 
 class _SignedInHomeState extends State<SignedInHome> {
   get AirportList => null;
+  Future<void> send_signedIn_user_data(var user_name, var user_email) async {
+    Map<String, String> queryParams = {
+      "user_name": "$user_name",
+      "user_email": "$user_email"
+    };
+    String queryString = Uri(queryParameters: queryParams).query;
+    var requesturl = 'http://192.168.1.10:5000//user/add/info?' + queryString;
+    var uri = Uri.parse(requesturl);
+    Response response = await get(uri);
+  }
+
   @override
   void initState() {
     // TODO: implement initState
-    print(widget.AirportList);
-    print("Email is -> ${widget.email}");
+    send_signedIn_user_data(widget.username, widget.email);
   }
 
   @override
