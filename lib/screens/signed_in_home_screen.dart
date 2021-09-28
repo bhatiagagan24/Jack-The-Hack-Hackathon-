@@ -4,7 +4,14 @@ import './app_airport_select.dart';
 
 class SignedInHome extends StatefulWidget {
   List AirportList;
-  SignedInHome({Key? key, required this.AirportList}) : super(key: key);
+  var username;
+  var email;
+  SignedInHome(
+      {Key? key,
+      required this.AirportList,
+      required this.username,
+      required this.email})
+      : super(key: key);
 
   @override
   _SignedInHomeState createState() => _SignedInHomeState();
@@ -19,6 +26,7 @@ class _SignedInHomeState extends State<SignedInHome> {
   void initState() {
     // TODO: implement initState
     print(widget.AirportList);
+    print("Email is -> ${widget.email}");
   }
 
   @override
@@ -96,8 +104,8 @@ class _SignedInHomeState extends State<SignedInHome> {
                 MaterialPageRoute(
                     builder: (context) => AirportSelect(
                           AirportList: this.widget.AirportList,
-                          user_email: '',
-                          user_name: '',
+                          user_email: widget.email,
+                          user_name: widget.username,
                         )),
               );
             },
@@ -118,8 +126,8 @@ class _SignedInHomeState extends State<SignedInHome> {
                   MaterialPageRoute(
                       builder: (context) => AirportSelect(
                             AirportList: this.AirportList,
-                            user_email: '',
-                            user_name: '',
+                            user_email: this.widget.email,
+                            user_name: this.widget.username,
                           )));
             }
           },

@@ -4,12 +4,12 @@ import 'package:http/http.dart';
 
 class FlightDetails extends StatefulWidget {
   String? flight_src;
-  String user_name, user_email;
+  var user_name, user_email;
   FlightDetails(
       {Key? key,
       this.flight_src,
-      required this.user_name,
-      required this.user_email})
+      @required this.user_name,
+      @required this.user_email})
       : super(key: key);
 
   @override
@@ -138,8 +138,8 @@ class _FlightDetailsState extends State<FlightDetails> {
       String? flight_number, String? user_name, String? user_email) async {
     Map<String, String> queryParams = {
       "flight_number": "$flight_number",
-      "user_name": "$user_name",
-      "user_email": "$user_email"
+      "user_name": widget.user_name,
+      "user_email": widget.user_email
     };
     // var uri = Uri.parse('http://192.168.1.22:5000/');
     String queryString = Uri(queryParameters: queryParams).query;

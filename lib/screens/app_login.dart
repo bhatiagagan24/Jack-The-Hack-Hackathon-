@@ -41,7 +41,7 @@ class _SignInState extends State<SignIn> {
       "user_email": "$user_email"
     };
     String queryString = Uri(queryParameters: queryParams).query;
-    var requesturl = 'http://192.168.1.22:5000/userdatabase?' + queryString;
+    var requesturl = 'http://192.168.1.10:5000//user/add/info?' + queryString;
     var uri = Uri.parse(requesturl);
     Response response = await get(uri);
   }
@@ -60,8 +60,9 @@ class _SignInState extends State<SignIn> {
         context,
         MaterialPageRoute(
             builder: (context) => SignedInHome(
-                  AirportList: this.widget.AirportList,
-                )),
+                AirportList: this.widget.AirportList,
+                username: user.displayName,
+                email: user.email)),
       );
       // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> LoggedInPage(user:User)));
     }
