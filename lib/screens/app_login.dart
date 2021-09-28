@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smart_journey_experience/API/google_signin_api.dart';
 import 'package:http/http.dart';
+import 'package:smart_journey_experience/screens/app_airport_select.dart';
 
 class SignIn extends StatelessWidget {
-  const SignIn({Key? key}) : super(key: key);
+  var AirportList;
+  SignIn({Key? key, this.AirportList}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +50,13 @@ class SignIn extends StatelessWidget {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Welcome' + user.displayName!)));
       send_signedIn_user_data(user.displayName, user.email);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => AirportSelect(
+                  AirportList: this.AirportList,
+                )),
+      );
       // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> LoggedInPage(user:User)));
     }
   }

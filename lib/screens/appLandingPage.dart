@@ -14,6 +14,7 @@ import 'package:smart_journey_experience/screens/app_deals.dart';
 import 'package:smart_journey_experience/screens/app_deals_food.dart';
 import 'package:smart_journey_experience/screens/app_help.dart';
 import 'package:smart_journey_experience/screens/app_about_us.dart';
+
 import 'app_Login.dart';
 
 class HomeScreenPhotos {
