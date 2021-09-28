@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smart_journey_experience/screens/past_trips/cards_past_trip.dart';
 import './app_airport_select.dart';
 import 'package:http/http.dart';
+import 'app_payment.dart';
 import 'package:smart_journey_experience/screens/appLandingPage.dart';
 
 class SignedInHome extends StatefulWidget {
@@ -252,6 +253,39 @@ class _SignedInHomeState extends State<SignedInHome> {
                           Padding(padding: EdgeInsets.fromLTRB(0, 20, 20, 0)),
                           Text(
                             "Help",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Payment()),
+                    );
+                  },
+                  child: Container(
+                    //Container to resize the
+                    padding: EdgeInsets.all(10),
+                    child: Card(
+                      margin: EdgeInsets.all(10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Column(
+                        children: <Widget>[
+                          Padding(padding: EdgeInsets.all(10)),
+                          FaIcon(
+                            FontAwesomeIcons.creditCard,
+                            color: Colors.purple[200],
+                          ),
+                          Padding(padding: EdgeInsets.fromLTRB(0, 20, 20, 0)),
+                          Text(
+                            "Payments",
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           )
