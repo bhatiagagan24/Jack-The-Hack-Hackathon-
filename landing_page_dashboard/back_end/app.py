@@ -202,7 +202,18 @@ def fetch_all_users():
 
 
 
-
+@app.route('/lounge/fetch', methods=['GET'])
+def return_lounge():
+    try:
+        airport_name = request.args.get('airport')
+        obj1 = database_access.Airport_Data_Access()
+        res = obj1.fetch_lounge(airport_name)
+        if res == -1:
+            raise Exception
+        return json.dumps(res)
+    except Error as e:
+        print('Error in route /lounge/fetch -----------> ', e)
+        return json.dumps("Error while returning Lounge")
 
 
 

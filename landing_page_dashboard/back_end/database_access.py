@@ -97,8 +97,9 @@ class Airport_Data_Access:
             print(resp)
             con.close()
             return resp
-        except:
-            print("error occured while fetching the result")
+        except Error as e:
+            print("error occured while fetching the result in fetch_airport_code ---------> ", e)
+            return -1
     def create_new_shop(self, airport_name, shop_name):
         try:
             airport_code = self.fetch_airport_code(airport_name)
@@ -112,6 +113,43 @@ class Airport_Data_Access:
             print("error occured while creating new shop")
             return -1
 
+        # creating a new lounge
+    # CREATE TABLE IF NOT EXISTS LoungeData (LOUNGECODE INTEGER PRIMARY KEY AUTOINCREMENT, AIRPORTCODE INT, LOUNGENAME TEXT
+    def insert_lounge(self, airport_name, lounge_name):
+        try:
+            con = sqlite3.connect('dashboard_database.db')
+            cur = con.cursor()
+            airport_code = self.fetch_airport_code(airport_name)
+            if airport_code == -1:
+                raise Exception
+            one = con.execute('''INSERT INTO LoungeData(AIRPORTCODE, LOUNGENAME) VALUES(?, ?)''', (airport_code, lounge_name, ))
+            con.commit()
+            con.close()
+            return 1
+        except Error as e:
+            print("Error while inserting lounge in the database :: --   > ", e)
+    
+    def fetch_lounge(self, airport_name):
+        try:
+            con = sqlite3.connect('dashboard_database.db')
+            cur = con.cursor()
+            airport_code = self.fetch_airport_code(airport_name)
+            if airport_code == -1:
+                raise Exception
+            one = con.execute('''SELECT LOUNGENAME FROM LoungeData  WHERE AIRPORTCODE = ?''', (airport_code, ))
+            resp = []
+            for u in one:
+                for k in u:
+                    resp.append(k)
+            print('resp ----------> ', resp)
+            con.close()
+            return resp
+        except Error as e:
+            print("Error in fetch_lounge ------->   ", e)
+            return -1
+
+# obj1 = Airport_Data_Access()
+# obj1.fetch_lounge('Delhi')
 
 class Shop_Data_Acccess(Airport_Data_Access):
     def __init__(self):
@@ -303,6 +341,7 @@ class Flights:
         except Error as e:
             print('Error in inserting in FlightData - > ', e)
             con.close()
+    
 
 
 class Users:
@@ -373,6 +412,7 @@ class Users:
         except Error as e:
             print("Error in return past trip ----   > ", e)
             return -1
+    
 
             
             # res3 = con.execute('''INSERT IN)''')

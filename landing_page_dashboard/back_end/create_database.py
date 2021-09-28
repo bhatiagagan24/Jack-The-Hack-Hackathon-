@@ -99,8 +99,8 @@ class Create_Database:
         except Error as e:
             print("Error while creating LoungeData -------------------> ", e)
 
-obj1 = Create_Database()
-obj1.lounge_data()
+# obj1 = Create_Database()
+# obj1.lounge_data()
 
 
 # obj1 = Create_Database()
