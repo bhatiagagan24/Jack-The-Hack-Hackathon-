@@ -277,6 +277,7 @@ class Flights:
             if len(result) == 0:
                 return -1
             else:
+                print(result)
                 return result
         except Error as e:
             print("Error in func -> fetch_flight_details", e)
@@ -287,10 +288,6 @@ class Flights:
         try:
             con = sqlite3.connect('dashboard_database.db')
             cur = con.cursor()
-            # res1 = con.execute('''SELECT SNO FROM FlightData WHERE FLIGHTCODE = ?''', (flightcode, ))
-            # res_lis = []
-            # for m in res1:
-            #     res_lis.append(m[0])
             res_lis = self.fetch_flight_details(flightcode)
             # print(res_lis[0])
             # this means that this flight code is new
@@ -309,13 +306,83 @@ class Flights:
 
 
 class Users:
-    pass
+    def __init__(self):
+        pass
+    def create_or_fetch_user(self, email, name):
+        try:
+            con = sqlite3.connect('dashboard_database.db')
+            cur = con.cursor()
+            # first I will check if user exists or not
+            # Users (ID INTEGER PRIMARY KEY AUTOINCREMENT, USERNAME TEXT, EMAIL TEXT)''')
+            res1 = con.execute('''SELECT ID FROM Users WHERE (USERNAME, EMAIL) = (?, ?)''', (name, email))
+            user_id = -1
+            for m in res1:
+                for j in m:
+                    user_id = j
+            # User does not exists
+            if user_id == -1:
+                res2 = con.execute('''INSERT INTO Users(Username, Email) VALUES (?, ?)''', (name, email, ))
+                con.commit()
+                con.close()
+                self.create_or_fetch_user(email, name)
+            print(user_id)
+            return user_id
+        except Error as e:
+            print(e)
+            return -1000
 
+    # UserTrip(USERID INTEGER, FLIGHTCODE TEXT, RECORD_UPDATE INT
+    def user_trip_upload(self, name, email, flightcode):
+        try:
+            user_id = self.create_or_fetch_user(email, name)
+            if user_id == -1000:
+                raise Exception
+            else:
+                con = sqlite3.connect('dashboard_database.db')
+                cur = con.cursor()
+                resp1 = con.execute('''INSERT INTO UserTrip(USERID, FLIGHTCODE, RECORD_UPDATE) VALUES (?, ?, ?)''', (user_id, flightcode, time.time()))
+                con.commit()
+                con.close()
+                return 1
+        except Error as e:
+            print("error in user_trip_upload :: ---- > ", e)
+            return -1
+    
+    # Returning all the past trips of the User (Returns FlightCode)
+    def return_past_trips(self, name, email):
+        try:
+            user_id = self.create_or_fetch_user(email, name)
+            if user_id == -1000:
+                raise Exception
+            else:
+                con = sqlite3.connect('dashboard_database.db')
+                cur = con.cursor()
+                resp1 = con.execute('''SELECT FLIGHTCODE, RECORD_UPDATE FROM UserTrip WHERE USERID=?''', (user_id, ))
+                final_resp = []
+                for t in resp1:
+                    new_list = deepcopy({})
+                    new_list["flightcode"] = t[0]
+                    new_list["timeuploaded"] = t[1]
+                    final_resp.append(new_list)
+                print(final_resp)
+            return final_resp
+        except Error as e:
+            print("Error in return past trip ----   > ", e)
+            return -1
 
+            
+            # res3 = con.execute('''INSERT IN)''')
+            
+new_temp_user_obj = Users()
+# new_temp_user_obj.user_trip_upload('sampleemail@@sample.com', 'sample_name5', 'flight1')
+new_temp_user_obj.return_past_trips('sampleemail@@sample.com', 'sample_name5')
+del new_temp_user_obj
+# temp_obj1 = Flights()
+# temp_obj1.add_flight('flight2', 'mumbai', 'delhi', '1632806539')
+# temp_obj1.fetch_flight_details('flight1')
 
-temp_obj1 = Flights()
-temp_obj1.add_flight('flight2', 'mumbai', 'delhi', '1632806539')
-
+# temp_user_obj = Users()
+# temp_user_obj.create_user('sample_name5', 'sampleemail@@sample.com')
 
 # temp_obj = Shop_Data_Acccess()
 # temp_obj.upload_shop_logo("https://assets.turbologo.com/blog/en/2020/01/19084716/armani-logo-cover.png", "Shop2", "Mumbai")

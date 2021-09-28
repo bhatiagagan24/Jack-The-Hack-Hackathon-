@@ -138,23 +138,58 @@ def return_deals():
         return json.dumps("Error")
 
 
-# route to add the details of the user and the trip as well
-@app.route('/user/info/add')
+# route to add the details of the user
+@app.route('/user/add/info')
 def add_user():
     try:
         user_name = request.args.get('username')
         user_email = request.args.get('email')
-        flight_code = request.args.get('flightcode')
-        source = request.args.get('source')
+        adding_users_obj = database_access.Users()
+        final_resp_from_obj = adding_users_obj.create_or_fetch_user(user_email, user_name)
+        if final_resp_from_obj == -1000:
+            raise Exception
         print(f"user_name -> {user_name} :: user_email -> {user_email}")
+        del final_resp_from_obj
         return "yo"
     except:
-        pass
+        del adding_users_obj
+        return json.dumps("Error in registering the user on the platform")
+
+
+# route to add trip of the user
+@app.route('/user/add/trip')
+def add_trip():
+    try:
+        user_name = request.args.get('username')
+        user_email = request.args.get('email')
+        flight_code = request.args.get('flightcode')
+        add_trip_obj = database_access.Users()
+        final_resp_from_obj = add_trip_obj.user_trip_upload(user_name, user_email, flight_code)
+        del add_trip_obj
+        if final_resp_from_obj == -1:
+            raise Exception
+        else:
+            return json.dumps("Uploaded Successfully")
+    except:
+        del add_trip_obj
+        return json.dumps("Error in adding the trip")
+
+
 
 # route returns the past trips
 @app.route('/user/info/fetch')
 def fetch_all_users():
-    pass
+    try:
+        obj1 = database_access.Users()
+        final_response = obj1.return_past_trips()
+        del obj1
+        if final_response == -1:
+            raise Exception
+        else:
+            return json.dumps(final_response)
+    except:
+        del obj1
+        return json.dumps("ERROR IN FETCHING PAST TRIP DATA FROM SOURCE")
 
 
 
