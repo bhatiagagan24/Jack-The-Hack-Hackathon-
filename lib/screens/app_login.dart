@@ -1,4 +1,6 @@
 // ignore: file_names
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smart_journey_experience/API/google_signin_api.dart';
@@ -35,15 +37,21 @@ class _SignInState extends State<SignIn> {
     );
   }
 
-  Future<void> send_signedIn_user_data(var user_name, var user_email) async {
+  Future<int> send_signedIn_user_data(var user_name, var user_email) async {
     Map<String, String> queryParams = {
       "user_name": "$user_name",
       "user_email": "$user_email"
     };
     String queryString = Uri(queryParameters: queryParams).query;
-    var requesturl = 'http://192.168.1.10:5000//user/add/info?' + queryString;
+    var requesturl = 'http://192.168.1.10:5000/user/add/info?' + queryString;
     var uri = Uri.parse(requesturl);
     Response response = await get(uri);
+    var temp = jsonDecode(response.body);
+    // if( temp ==)
+    // return 1;
+    print(
+        " value of temp is -------------- -------------------- --------------------> ${temp}");
+    return 1;
   }
 
   Future signIn(BuildContext context) async {
@@ -55,7 +63,11 @@ class _SignInState extends State<SignIn> {
       //user.displayName
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Welcome' + user.displayName!)));
-      send_signedIn_user_data(user.displayName, user.email);
+      var sign_in_func_result =
+          await send_signedIn_user_data(user.displayName, user.email);
+      if (sign_in_func_result == 1) {
+        return;
+      }
       Navigator.push(
         context,
         MaterialPageRoute(
