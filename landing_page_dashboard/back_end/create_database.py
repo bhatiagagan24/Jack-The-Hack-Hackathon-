@@ -1,5 +1,6 @@
 import sqlite3
-
+from sqlite3.dbapi2 import Error
+import time
 
 # SQLite has been initially used
 
@@ -62,7 +63,36 @@ class Create_Database:
             print("ShopDeals Database Created Successfully")
         except:
             print("error in creating database ShopList")
-        
+    
+    def user_database(self):
+        try:
+            con = sqlite3.connect('dashboard_database.db')
+            con.execute('''CREATE TABLE IF NOT EXISTS Users (ID INTEGER PRIMARY KEY AUTOINCREMENT, USERNAME TEXT, EMAIL TEXT)''')
+            con.close()
+            print("user table with fields userid, name, email created")
+        except Error as e:
+            print("error occured while creating table Users ----> ", e)
+    def user_trip_data(self):
+        try:
+            con = sqlite3.connect('dashboard_database.db')
+            # Time stored as INT(UNIXTIME) -> INT(time.time())
+            con.execute('''CREATE TABLE IF NOT EXISTS UserTrip(USERID INTEGER, FLIGHTCODE TEXT, RECORD_UPDATE INT)''')
+            # con.execute('''ALTER TABLE UserTrip DROP COLUMN DESTINATION''')
+            con.close()
+            print("Table UserTrip created")
+        except Error as e:
+            print("Error in creating table UserTrip --------> ", e)
+    def flight_data(self):
+        try:
+            con = sqlite3.connect('dashboard_database.db')
+            con.execute('''CREATE TABLE IF NOT EXISTS FlightData (SNO INTEGER PRIMARY KEY AUTOINCREMENT, FLIGHTCODE TEXT, SOURCE TEXT, DESTINATION TEXT, FLIGHT_DATE_TIME INT)''')
+            con.close()
+            print("FlightData created successfully")
+        except Error as e:
+            print("Error while creating FlightData -----------------> ", e)
+
+
+
 
 # obj1 = Create_Database()
 # obj1.create_table()
@@ -70,7 +100,9 @@ class Create_Database:
 
 obj2 = Create_Database()
 # obj2.create_table_airport()
-obj2.create_airport_shop_database()
+obj2.user_database()
+obj2.user_trip_data()
+obj2.flight_data()
 # obj2.create_shop_logo_database()
 # obj2.shop_login_credentials()
 # obj2.shop_deals_database()

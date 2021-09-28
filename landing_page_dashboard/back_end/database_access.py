@@ -262,13 +262,64 @@ class Shop_Data_Acccess(Airport_Data_Access):
             return -1
 
 
+class Flights:
+    def __init__(self):
+        pass
+    def fetch_flight_details(self, flight_number):
+        try:
+            con = sqlite3.connect('dashboard_database.db')
+            cur = con.cursor()
+            res1 = con.execute('''SELECT * FROM FlightData WHERE FLIGHTCODE = ?''', (flight_number, ))
+            result = []
+            for m in res1:
+                for u in m:
+                    result.append(u)
+            if len(result) == 0:
+                return -1
+            else:
+                return result
+        except Error as e:
+            print("Error in func -> fetch_flight_details", e)
+            return -100
+        
+    # flight date and time will be in UNIX FORMAT
+    def add_flight(self, flightcode, source, destination, flight_date_and_time):
+        try:
+            con = sqlite3.connect('dashboard_database.db')
+            cur = con.cursor()
+            # res1 = con.execute('''SELECT SNO FROM FlightData WHERE FLIGHTCODE = ?''', (flightcode, ))
+            # res_lis = []
+            # for m in res1:
+            #     res_lis.append(m[0])
+            res_lis = self.fetch_flight_details(flightcode)
+            # print(res_lis[0])
+            # this means that this flight code is new
+            if res_lis == -1:
+                con.execute('''INSERT INTO FlightData (FLIGHTCODE, SOURCE, DESTINATION, FLIGHT_DATE_TIME) VALUES (?, ?, ?, ?)''', (flightcode, source, destination, flight_date_and_time, ))
+                con.commit()
+            elif res_lis == -100:
+                raise Exception
+            else:
+                con.execute('''UPDATE FlightData SET (FLIGHTCODE, SOURCE, DESTINATION, FLIGHT_DATE_TIME) = (?, ?, ?, ?) WHERE SNO=?''', (flightcode, source, destination, flight_date_and_time, res_lis[0], ))
+                con.commit()
+            con.close()
+        except Error as e:
+            print('Error in inserting in FlightData - > ', e)
+            con.close()
+
+
+class Users:
+    pass
 
 
 
+temp_obj1 = Flights()
+temp_obj1.add_flight('flight2', 'mumbai', 'delhi', '1632806539')
 
-temp_obj = Shop_Data_Acccess()
-temp_obj.upload_shop_logo("https://assets.turbologo.com/blog/en/2020/01/19084716/armani-logo-cover.png", "Shop2", "Mumbai")
-temp_obj.upload_shop_deals("40% Off", "Shop2", "Mumbai", "50 % off on everything you buy")
+
+# temp_obj = Shop_Data_Acccess()
+# temp_obj.upload_shop_logo("https://assets.turbologo.com/blog/en/2020/01/19084716/armani-logo-cover.png", "Shop2", "Mumbai")
+# temp_obj.upload_shop_deals("40% Off", "Shop2", "Mumbai", "50 % off on everything you buy")
 # temp_obj.fetch_deals_logo('Delhi')
 
 # temp_obj = Airport_Data_Access()

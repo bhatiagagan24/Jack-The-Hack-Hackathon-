@@ -7,8 +7,11 @@ import os
 from os.path import join, dirname, realpath
 from flask.globals import request
 import database_access
-
 from werkzeug.serving import WSGIRequestHandler
+# import 
+
+# config.py stores password for mongoDB
+import config
 
 app = Flask(__name__)
 
@@ -110,14 +113,6 @@ def add_airport():
     # pass
 @app.route('/deals/shopping', methods=['GET'])
 def return_deals():
-    # Deal d = new Deal(
-    #       Shop_name: ResList[i]["name"],
-    #       loc: ResList[i]["location"],
-    #       heading: ResList[i]["Heading"],
-    #       simple_text: ResList[i]["simple"],
-    #       photo: ResList[i]["photo"]);
-    #   DealList.add(d);
-    # }
     try:
         airport_name = request.args.get('airport')
         if airport_name == 'All':
@@ -141,11 +136,25 @@ def return_deals():
                 return json.dumps(res)
     except Error as e:
         return json.dumps("Error")
-    # return json.dumps([{
-    #     "name":"Shop_name","location":"Delhi","Heading":"abc","simple":"avd","photo":"https://raw.githubusercontent.com/Tech-closet/techclosetonline.github.io/main/logo_circular.png",
-    # }])
 
 
+# route to add the details of the user and the trip as well
+@app.route('/user/info/add')
+def add_user():
+    try:
+        user_name = request.args.get('username')
+        user_email = request.args.get('email')
+        flight_code = request.args.get('flightcode')
+        source = request.args.get('source')
+        print(f"user_name -> {user_name} :: user_email -> {user_email}")
+        return "yo"
+    except:
+        pass
+
+# route returns the past trips
+@app.route('/user/info/fetch')
+def fetch_all_users():
+    pass
 
 
 
