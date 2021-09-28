@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import './app_airport_select.dart';
 import 'package:http/http.dart';
+import 'package:smart_journey_experience/screens/appLandingPage.dart';
 
 class SignedInHome extends StatefulWidget {
   List AirportList;
@@ -26,7 +27,7 @@ class _SignedInHomeState extends State<SignedInHome> {
       "user_email": "$user_email"
     };
     String queryString = Uri(queryParameters: queryParams).query;
-    var requesturl = 'http://192.168.1.10:5000//user/add/info?' + queryString;
+    var requesturl = 'http://192.168.1.22:5000//user/add/info?' + queryString;
     var uri = Uri.parse(requesturl);
     Response response = await get(uri);
   }
@@ -40,6 +41,10 @@ class _SignedInHomeState extends State<SignedInHome> {
   @override
   Widget build(BuildContext context) {
     List AirportList = widget.AirportList;
+    // Navigator.of(context).pushAndRemoveUntil(
+    //     MaterialPageRoute(builder: (context) => LoginScreen()),
+    //     (Route<dynamic> route) => false);
+    // send_signedIn_user_data(widget.username, widget.email);
     return Scaffold(
       appBar: AppBar(
         title: Text(
