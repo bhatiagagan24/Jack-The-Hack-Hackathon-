@@ -98,14 +98,25 @@ class Create_Database:
 # obj1.create_table()
     
 
-obj2 = Create_Database()
+# obj2 = Create_Database()
 # obj2.create_table_airport()
-obj2.user_database()
-obj2.user_trip_data()
-obj2.flight_data()
+# obj2.user_database()
+# obj2.user_trip_data()
+# obj2.flight_data()
 # obj2.create_shop_logo_database()
 # obj2.shop_login_credentials()
 # obj2.shop_deals_database()
 
+
+# def funct_to_delete_rows():
+#     try:
+#         con = sqlite3.connect('dashboard_database.db')
+#         for m in range(9023, 9090):
+#             con.execute('''DELETE FROM Users WHERE ID=?''', (m, ))
+#             con.commit()
+#     except Error as e:
+#         print(e)
+
+# funct_to_delete_rows()    
 
 

@@ -315,18 +315,20 @@ class Users:
             # first I will check if user exists or not
             # Users (ID INTEGER PRIMARY KEY AUTOINCREMENT, USERNAME TEXT, EMAIL TEXT)''')
             res1 = con.execute('''SELECT ID FROM Users WHERE (USERNAME, EMAIL) = (?, ?)''', (name, email))
-            user_id = -1
+            user_id = []
             for m in res1:
-                for j in m:
-                    user_id = j
+                for k in m:
+                    user_id.append(k)
             # User does not exists
-            if user_id == -1:
+            print(k)
+            if len(user_id) == 0:
+                print("user does not exists")
                 res2 = con.execute('''INSERT INTO Users(Username, Email) VALUES (?, ?)''', (name, email, ))
                 con.commit()
                 con.close()
                 self.create_or_fetch_user(email, name)
-            print(user_id)
-            return user_id
+            print(k)
+            return k
         except Error as e:
             print(e)
             return -1000
@@ -352,6 +354,7 @@ class Users:
     def return_past_trips(self, name, email):
         try:
             user_id = self.create_or_fetch_user(email, name)
+            print("user id -----------------------> ", user_id)
             if user_id == -1000:
                 raise Exception
             else:
@@ -373,10 +376,10 @@ class Users:
             
             # res3 = con.execute('''INSERT IN)''')
             
-new_temp_user_obj = Users()
-# new_temp_user_obj.user_trip_upload('sampleemail@@sample.com', 'sample_name5', 'flight1')
-new_temp_user_obj.return_past_trips('sampleemail@@sample.com', 'sample_name5')
-del new_temp_user_obj
+# new_temp_user_obj = Users()
+# # new_temp_user_obj.user_trip_upload('sampleemail@@sample.com', 'sample_name5', 'flight1')
+# new_temp_user_obj.return_past_trips('sample_name5', 'sampleemail@@sample.com')
+# # del new_temp_user_obj
 # temp_obj1 = Flights()
 # temp_obj1.add_flight('flight2', 'mumbai', 'delhi', '1632806539')
 # temp_obj1.fetch_flight_details('flight1')

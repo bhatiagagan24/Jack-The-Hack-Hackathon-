@@ -150,7 +150,7 @@ def add_user():
             raise Exception
         print(f"user_name -> {user_name} :: user_email -> {user_email}")
         del final_resp_from_obj
-        return "yo"
+        return 1
     except:
         del adding_users_obj
         return json.dumps("Error in registering the user on the platform")
@@ -180,15 +180,19 @@ def add_trip():
 @app.route('/user/info/fetch')
 def fetch_all_users():
     try:
+        user_name = request.args.get('username')
+        user_email = request.args.get('email')
+        print("username ------------------------------>       ", user_name)
         obj1 = database_access.Users()
-        final_response = obj1.return_past_trips()
-        del obj1
+        final_response = obj1.return_past_trips(user_name, user_email)
         if final_response == -1:
+            # del obj1
             raise Exception
         else:
+            # del obj1
             return json.dumps(final_response)
     except:
-        del obj1
+        # del obj1
         return json.dumps("ERROR IN FETCHING PAST TRIP DATA FROM SOURCE")
 
 
