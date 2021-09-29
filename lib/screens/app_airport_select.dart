@@ -104,10 +104,10 @@ class _AirportSelectState extends State<AirportSelect> {
                       ),
                     );
                   })),
-          MaterialButton(
-            onPressed: () {},
-            child: Text('I want to Explore'),
-          ),
+          // MaterialButton(
+          //   onPressed: () {},
+          //   child: Text('I want to Explore'),
+          // ),
         ],
       ),
       bottomNavigationBar: Padding(
