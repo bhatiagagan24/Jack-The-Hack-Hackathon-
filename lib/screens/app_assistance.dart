@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:http/http.dart';
 
-class Assistance extends StatelessWidget {
+class Assistance extends StatefulWidget {
   String user_name;
   String user_email;
   String airport;
@@ -13,6 +14,26 @@ class Assistance extends StatelessWidget {
       : super(key: key);
 
   @override
+  _AssistanceState createState() => _AssistanceState();
+}
+
+class _AssistanceState extends State<Assistance> {
+  String res = "";
+  Future<void> sendRequest(String service) async {
+    Map<String, String> queryParams = {
+      "airportname": "${widget.airport}",
+      "email": "${widget.user_email}",
+      "username": "${widget.user_name}",
+      "service": "$service"
+    };
+    String queryString = Uri(queryParameters: queryParams).query;
+    var requesturl = 'http://192.168.1.10:5000/lounge/fetch?' + queryString;
+    var uri = Uri.parse(requesturl);
+    Response response = await get(uri);
+    res = response.body;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -22,7 +43,16 @@ class Assistance extends StatelessWidget {
       ),
       body: GridView.count(crossAxisCount: 2, children: <Widget>[
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            sendRequest("WheelChair");
+            if (res == "1") {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text("Request Sent")));
+            } else {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text("Try Again")));
+            }
+          },
           child: Container(
               height: 200,
               child: Card(
@@ -44,7 +74,16 @@ class Assistance extends StatelessWidget {
               )),
         ),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            sendRequest("First Aid");
+            if (res == "1") {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text("Request Sent")));
+            } else {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text("Try Again")));
+            }
+          },
           child: Container(
               height: 200,
               child: Card(
@@ -65,52 +104,6 @@ class Assistance extends StatelessWidget {
                 ),
               )),
         ),
-        GestureDetector(
-          onTap: () {},
-          child: Container(
-              height: 200,
-              child: Card(
-                margin: EdgeInsets.all(20),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-                child: Column(
-                  children: [
-                    Padding(padding: EdgeInsets.all(30)),
-                    FaIcon(
-                      FontAwesomeIcons.wheelchair,
-                      color: Colors.purple[200],
-                    ),
-                    // ignore: prefer_const_constructors
-                    Padding(padding: EdgeInsets.all(20)),
-                    Text("WheelChair")
-                  ],
-                ),
-              )),
-        ),
-        GestureDetector(
-          onTap: () {},
-          child: Container(
-              height: 200,
-              child: Card(
-                margin: EdgeInsets.all(20),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-                child: Column(
-                  children: [
-                    Padding(padding: EdgeInsets.all(30)),
-                    FaIcon(
-                      FontAwesomeIcons.wheelchair,
-                      color: Colors.purple[200],
-                    ),
-                    // ignore: prefer_const_constructors
-                    Padding(padding: EdgeInsets.all(20)),
-                    Text("WheelChair")
-                  ],
-                ),
-              )),
-        )
       ]),
     );
   }
