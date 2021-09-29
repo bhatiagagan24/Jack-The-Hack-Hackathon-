@@ -1,9 +1,14 @@
+import 'package:http/http.dart';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'app_payment.dart';
 
 class PaymentAdd extends StatefulWidget {
-  const PaymentAdd({Key? key}) : super(key: key);
+  var username;
+  var email;
+  PaymentAdd({Key? key, required this.username, required this.email})
+      : super(key: key);
 
   @override
   _PaymentAddState createState() => _PaymentAddState();
@@ -11,6 +16,20 @@ class PaymentAdd extends StatefulWidget {
 
 class _PaymentAddState extends State<PaymentAdd> {
   TextEditingController _cardNo = TextEditingController();
+  String res = "";
+  Future<void> send_payment_data() async {
+    Map<String, String> queryParams = {
+      "email": "${widget.email}",
+      "username": "${widget.username}",
+      "service": "${_cardNo.text}"
+    };
+    String queryString = Uri(queryParameters: queryParams).query;
+    var requesturl = 'http://192.168.1.10:5000/lounge/fetch?' + queryString;
+    var uri = Uri.parse(requesturl);
+    Response response = await get(uri);
+    res = response.body;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,6 +79,7 @@ class _PaymentAddState extends State<PaymentAdd> {
                     margin: EdgeInsets.all(10),
                     child: TextField(
                       controller: _cardNo,
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           hintText: "0000 0000 0000 0000",
                           border: OutlineInputBorder(
@@ -81,10 +101,17 @@ class _PaymentAddState extends State<PaymentAdd> {
               ),
             ),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Payment()),
-              );
+              send_payment_data();
+              if (res == "1") {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Payment(
+                            username: this.widget.username,
+                            email: this.widget.email,
+                          )),
+                );
+              } else if (res == "-1") {}
             },
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,

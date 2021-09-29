@@ -273,7 +273,11 @@ class _SignedInHomeState extends State<SignedInHome> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Payment()),
+                      MaterialPageRoute(
+                          builder: (context) => Payment(
+                                username: this.widget.username,
+                                email: this.widget.email,
+                              )),
                     );
                   },
                   child: Container(
