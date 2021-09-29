@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:smart_journey_experience/screens/app_help_signed_in.dart';
 import './app_assistance.dart';
 import 'package:smart_journey_experience/screens/app_flight_details.dart';
 // import 'app_lounge.dart';
@@ -143,14 +144,14 @@ class _AirportSelectState extends State<AirportSelect> {
                           )), //To CHange
                 );
               } else if (widget.route == "Help") {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //       builder: (context) => Assistance(
-                //           user_name: widget.user_name,
-                //           user_email: widget.user_email,
-                //           airport: "$choosen_option")), //To CHange
-                // );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => HelpSignedIn(
+                          username: widget.user_name,
+                          email: widget.user_email,
+                          airport: "$choosen_option")), //To CHange
+                );
               }
             }
           },
