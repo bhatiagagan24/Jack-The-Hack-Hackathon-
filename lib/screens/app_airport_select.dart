@@ -11,6 +11,7 @@ import 'package:http/http.dart';
 
 class AirportSelect extends StatefulWidget {
   List AirportList;
+  // String selected_airport;
   String user_name, user_email, route;
   AirportSelect(
       {Key? key,
@@ -27,7 +28,7 @@ class AirportSelect extends StatefulWidget {
 class _AirportSelectState extends State<AirportSelect> {
   int selectedIndex = -1;
   String? choosen_option;
-  List<String> lounge_list = [];
+  // List<String> lounge_list = [];
   @override
   void initState() {
     // TODO: implement initState
@@ -129,14 +130,15 @@ class _AirportSelectState extends State<AirportSelect> {
                           )),
                 );
               } else if (widget.route == "Lounges") {
-                get_Lounge_data(choosen_option);
+                // get_Lounge_data(choosen_option);
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => Lounge(
                             user_name: widget.user_name,
                             user_email: widget.user_email,
-                            lounge_list: this.lounge_list,
+                            airport_name: this.choosen_option,
+                            // lounge_list: this.lounge_list,
                             // lounge_list: [
                             //   "Plaza premium Lounge",
                             //   "Plaza premium Lounge",
@@ -171,16 +173,18 @@ class _AirportSelectState extends State<AirportSelect> {
     );
   }
 
-  Future<void> get_Lounge_data(var airport) async {
-    Map<String, String> queryParams = {
-      "airport": "$airport",
-      // "email": "$user_email"
-    };
-    String queryString = Uri(queryParameters: queryParams).query;
-    var requesturl = 'http://192.168.1.10:5000/lounge/fetch?' + queryString;
-    var uri = Uri.parse(requesturl);
-    Response response = await get(uri);
-    print(response.body);
-    lounge_list = (jsonDecode(response.body) as List<dynamic>).cast<String>();
-  }
+  // Future<void> get_Lounge_data(var airport) async {
+  //   Map<String, String> queryParams = {
+  //     "airport": "$airport",
+  //     // "email": "$user_email"
+  //   };
+  //   String queryString = Uri(queryParameters: queryParams).query;
+  //   var requesturl = 'http://192.168.1.10:5000/lounge/fetch?' + queryString;
+  //   var uri = Uri.parse(requesturl);
+  //   Response response = await get(uri);
+  //   // print({response.body}");
+  //   setState(() {
+  //     lounge_list = (jsonDecode(response.body) as List<dynamic>).cast<String>();
+  //   });
+  // }
 }
