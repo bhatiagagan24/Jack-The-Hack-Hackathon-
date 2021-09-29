@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart';
-import 'package:smart_journey_experience/screens/app_food.dart';
+import 'package:smart_journey_experience/screens/app_food_load.dart';
 
 class LoungeDashboard extends StatelessWidget {
   String user_name, user_email;
@@ -110,8 +110,9 @@ class LoungeDashboard extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => FoodItems(
-                                    food_items: this.food_list,
+                              builder: (context) => FoodLoad(
+                                    food_item: this.food_list,
+                                    // food_item: ["Rajma", "Chole"],
                                   )));
                     },
                     child: Container(

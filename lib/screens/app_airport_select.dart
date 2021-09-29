@@ -135,6 +135,11 @@ class _AirportSelectState extends State<AirportSelect> {
                             user_name: widget.user_name,
                             user_email: widget.user_email,
                             lounge_list: this.lounge_list,
+                            // lounge_list: [
+                            //   "Plaza premium Lounge",
+                            //   "Plaza premium Lounge",
+                            //   "Plaza premium Lounge"
+                            // ],
                           )), //To CHange
                 );
               } else if (widget.route == "Help") {
