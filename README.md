@@ -48,14 +48,14 @@ lib
 - <strong> Need for the App </strong>
 Imagine a world where users can access every airport service right from their Phone? Imagine the satisfaction that the flyers will get from this service? Imagine the business   it will generate for the outlets on the airport? Seems too cool right? The current problems that the flyers face right now, is that there is no unified source of information   about the activities on a airport. Requesting a service has also been a tedious task on an airport. Further, there is no lack of activities and consumer shops on the airport,  yet flyers prefer to seat themselves at a single spot before a flight, which further hurts the business interests of the shop owners.
 
-<strong> Flyers should have the power to improve their airport experience in their own hands !! </strong>
-
+<center> <strong> Flyers should have the power to improve their airport experience in their own hands !! </strong> </center>
+<!-- 
 - <strong> Description of the App </strong>
     - Cross Platform App built in Flutter.
     - 
 
 - 
 
-
+ -->
 
 # Jack-The-Hack-Hackathon-
