@@ -57,7 +57,7 @@ class _AssistanceState extends State<Assistance> {
             if (res == "1") {
               ScaffoldMessenger.of(context)
                   .showSnackBar(SnackBar(content: Text("Request Sent")));
-            } else if (res == "-1") {
+            } else {
               ScaffoldMessenger.of(context)
                   .showSnackBar(SnackBar(content: Text("Try Again")));
             }
