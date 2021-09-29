@@ -1,5 +1,9 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -18,53 +22,74 @@ class CardsPastTrips extends StatefulWidget {
 
 class _CardsPastTripsState extends State<CardsPastTrips> {
   @override
-
-  // function to fetch all the trips of the user
-//   Future<List<Deal>> getData(String? dropdown) async {
-//     List<Deal> DealList = [];
-//     Map<String, String> queryParams = {"airport": "$dropdown"};
-//     // var uri = Uri.parse('http://192.168.1.22:5000/');
-//     String queryString = Uri(queryParameters: queryParams).query;
-//     var requesturl = 'http://192.168.1.22:5000/?' + queryString;
-//     var uri = Uri.parse(requesturl);
-//     Response response = await get(uri);
-//     var ResList = jsonDecode(response.body);
-//     List<Deal> dealList = [];
-//     for (var i = 0; i < ResList.length; i++) {
-//       // print(ResList[i]["name"]);
-//       Deal d = new Deal(
-//           Shop_name: ResList[i]["name"],
-//           loc: ResList[i]["location"],
-//           heading: ResList[i]["Heading"],
-//           simple_text: ResList[i]["simple"],
-  // photo: ResList[i]["photo"]);
-//       DealList.add(d);//     }
-//     return DealList;
-//   }
-// }
-
-  Future<void> fetchPast_Trips() async {
+  Future<List> fetchPast_Trips() async {
     var urlString = 'http://192.168.1.10:5000/user/info/fetch?';
     var queryParam = {"username": widget.user_name, "email": widget.user_email};
     var queryString = Uri(queryParameters: queryParam).query;
     var url = Uri.parse(urlString + queryString);
     http.Response resp = await http.get(url);
     print(resp.body);
+    var respdata = json.decode(resp.body);
+    var travel_list = [];
+    for (var i = 0; i < respdata.length; i++) {
+      print('inside for loop');
+      var temp_list = [];
+      temp_list.add(respdata[i]["flightcode"]);
+      print("flightcode -> ");
+      print(respdata[i]["flightcode"]);
+      temp_list.add(respdata[i]["timeuploaded"]);
+      travel_list.add(temp_list);
+      print("temp_list now ---> ${temp_list}");
+    }
+    log("travel list --->  ${travel_list}");
+    return travel_list;
   }
 
   @override
   Widget build(BuildContext context) {
+    var screen_width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         actions: [],
-        title: Text('My Trips'),
+        title: Text('My Past Trips'),
       ),
       body: new FutureBuilder(
           future: fetchPast_Trips(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
-            return Container(
-              child: CircularProgressIndicator(),
-            );
+            if (snapshot.hasData != true) {
+              return CircularProgressIndicator();
+            } else {
+              return ListView.builder(
+                // shrinkWrap: true,
+                itemCount: snapshot.data.length,
+                itemBuilder: (context, index) => Row(children: <Widget>[
+                  // Text('Information here'),
+                  // ElevatedButton(
+                  //     onPressed: () {
+                  //       print(snapshot.data[index]);
+                  //     },
+                  // child: Text('Check Content')),
+                  // Text(snapshot.data[index][0]),
+                  Container(
+                    height: 100,
+                    width: screen_width,
+                    child: Card(
+                      color: Colors.black12,
+                      child: Center(
+                        child: Text(
+                          snapshot.data[index][0],
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Colors.blue.shade100,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ]),
+              );
+            }
           }),
       // ],
     );
