@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart';
@@ -27,10 +29,17 @@ class _AssistanceState extends State<Assistance> {
       "service": "$service"
     };
     String queryString = Uri(queryParameters: queryParams).query;
-    var requesturl = 'http://192.168.1.10:5000/lounge/fetch?' + queryString;
+    var requesturl =
+        'http://192.168.1.10:5000/assistance/request?' + queryString;
     var uri = Uri.parse(requesturl);
     Response response = await get(uri);
     res = response.body;
+    var respdata = json.decode(res);
+    print("Respdata --- > ${respdata}");
+    print(respdata.runtimeType);
+    setState(() {
+      res = respdata;
+    });
   }
 
   @override
@@ -48,7 +57,7 @@ class _AssistanceState extends State<Assistance> {
             if (res == "1") {
               ScaffoldMessenger.of(context)
                   .showSnackBar(SnackBar(content: Text("Request Sent")));
-            } else {
+            } else if (res == "-1") {
               ScaffoldMessenger.of(context)
                   .showSnackBar(SnackBar(content: Text("Try Again")));
             }
