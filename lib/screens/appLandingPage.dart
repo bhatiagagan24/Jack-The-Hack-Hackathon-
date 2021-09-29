@@ -92,155 +92,77 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var screen_width = MediaQuery.of(context).size.width;
-    return ListView(
-      // crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        // scrollDirection: Axis.vertical,
-        // child:
-        Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
-          // crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            // ignore: avoid_unnecessary_containers
-
-            ButtonBar(
-              alignment: MainAxisAlignment.center,
-              // layoutBehavior: ,
-              children: <Widget>[
-                Container(
-                  width: screen_width,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      showModalBottomSheet<void>(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return Center(
-                              child: Container(
-                            alignment: Alignment.center,
-                            height: 200,
-                            // child: Center(
-                            //   child: Text('This is the Modal Sheet'),
-                            // ),
-                            child: SignIn(AirportList: this.AirportList),
-                          ));
-                        },
-                      );
-                    },
-                    child: Text('Login'),
-                    style: ElevatedButton.styleFrom(
-                        primary: Colors.lightGreen.shade300),
-                  ),
-                ),
-              ],
-            ),
-            // ),
-          ],
-        ),
-        ButtonBar(
-          alignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            TextButton.icon(
-                // onPressed: () {},
-                onPressed: () {
-                  getAirportData();
-                  print("this is the temp var ${temp_variable}");
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => Deals(
-                              AirportList: this.AirportList,
-                            )),
-                  );
-                },
-                icon: Icon(Icons.shopping_bag_outlined),
-                label: Text('Shopping Deals')),
-            TextButton.icon(
-              onPressed: () {
-                getAirportData();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => DealsFood(
-                            AirportList: this.AirportList,
-                          )),
-                );
-              },
-              icon: Icon(Icons.food_bank_outlined),
-              label: Text('Dining Deals'),
-            ),
-          ],
-        ),
-        FutureBuilder(
-          future: getImageUri(),
-          builder: (context, AsyncSnapshot snapshot) {
-            if (snapshot.hasData != true) {
-              // log(snapshot);
-              log("data was not there in the snapshot");
-              return Container(child: CircularProgressIndicator());
-            } else {
-              return ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: snapshot.data.length,
-                itemBuilder: (ctx, index) => Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    // Text(snapshot.data[index].photo_name),
-                    Container(
-                      height: 200,
-                      width: screen_width,
-                      child: Card(
-                        child: Image.network(
-                          "http://192.168.1.10:5000/static/media/" +
-                              snapshot.data[index].photo_name,
-                          fit: BoxFit.fill,
-                          width: screen_width,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              );
-            }
-          },
-        ),
-        SingleChildScrollView(
-          child: Column(
-            children: [
-              ButtonBar(
-                alignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  ButtonBar(
-                    children: <Widget>[
-                      TextButton.icon(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AboutUS()),
-                            );
-                          },
-                          icon: Icon(Icons.group),
-                          label: Text('About Us')),
-                      TextButton.icon(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => Help()),
-                          );
-                        },
-                        icon: Icon(Icons.help),
-                        label: Text('Help'),
-                      ),
-                    ],
-                  ),
-                ],
-              )
+    return Scaffold(
+      body: Column(
+        children: <Widget>[
+          Padding(padding: EdgeInsets.all(20)),
+          Center(
+              child: Image.asset(
+            "assets/home_page.png",
+            height: 300,
+            width: 300,
+          )),
+          Padding(padding: EdgeInsets.all(5)),
+          Center(
+              child: Text(
+            "Digitizing your Airport Experience.",
+            style: TextStyle(fontSize: 20),
+          )),
+          SizedBox(
+            height: 10,
+          ),
+          Center(child: SignIn(AirportList: this.AirportList)),
+          // Padding(padding: EdgeInsets.all(10)),
+          ButtonBar(
+            alignment: MainAxisAlignment.center,
+            children: <Widget>[
+              TextButton.icon(
+                  // onPressed: () {},
+                  onPressed: () {
+                    getAirportData();
+                    print("this is the temp var ${temp_variable}");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Deals(
+                                AirportList: this.AirportList,
+                              )),
+                    );
+                  },
+                  icon: Icon(Icons.shopping_bag_outlined),
+                  label: Text('Shopping and Dining Deals')),
             ],
           ),
-        )
-      ],
+          ButtonBar(
+            alignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              ButtonBar(
+                children: <Widget>[
+                  TextButton.icon(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => AboutUS()),
+                        );
+                      },
+                      icon: Icon(Icons.group),
+                      label: Text('About Us')),
+                  TextButton.icon(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Help()),
+                      );
+                    },
+                    icon: Icon(Icons.help),
+                    label: Text('Help'),
+                  ),
+                ],
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 }

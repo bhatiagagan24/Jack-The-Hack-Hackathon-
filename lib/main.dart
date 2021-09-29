@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
+      debugShowCheckedModeBanner: false,
       home: const HomePage(),
       // home: Deals(),
       // home: const QRCodeScanner(),

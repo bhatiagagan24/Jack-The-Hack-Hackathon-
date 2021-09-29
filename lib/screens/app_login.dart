@@ -20,21 +20,18 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            SizedBox(height: 30),
-            ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                    primary: Colors.white, onPrimary: Colors.black),
-                onPressed: () => signIn(context),
-                icon: FaIcon(
-                  FontAwesomeIcons.google,
-                  color: Colors.red,
-                ),
-                label: Text("Sign In"))
-          ]),
+    return SizedBox(
+      height: 40,
+      width: 350,
+      child: ElevatedButton.icon(
+          style: ElevatedButton.styleFrom(
+              primary: Colors.white, onPrimary: Colors.black),
+          onPressed: () => signIn(context),
+          icon: FaIcon(
+            FontAwesomeIcons.google,
+            color: Colors.red,
+          ),
+          label: Text("Sign In")),
     );
   }
 
