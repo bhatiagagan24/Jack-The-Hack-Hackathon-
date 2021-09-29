@@ -11,3 +11,5 @@ smart_journey_experience.iml
 web/   
 winuwp/
 back_end/config.py
+back_end/virtual
+back_end/__pycache__
