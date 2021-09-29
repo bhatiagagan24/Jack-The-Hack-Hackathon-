@@ -7,8 +7,8 @@
 # DigiAero - Digital Airport Experience
 - TechStack
     - Programming languages used: **Dart, Python**
-    - **Flutter** for App Development
-    - APIs made in **Flask** framework developed in Python
+    - **Flutter and Dart** for App Development
+    - APIs made in **Flask Framework and Python**
     - Database: **SQLlite** 
     - Google Sign In: **GCP OAuth Service**
 
