@@ -127,6 +127,25 @@ class Users:
             print("Error in return past trip ----   > ", e)
             return -1
 
+    # function to upload a card
+    # ('''CREATE TABLE IF NOT EXISTS PaymentTable (USERCODE INT, CARDNUMBER INT)''')
+    def add_payment_card(self, username, email, cardnumber):
+        try:
+            user_id = self.create_or_fetch_user(email, username)
+            user_id = user_id[0]
+            print("user id in add_payment_card ------------> ", user_id)
+            if user_id == -1000:
+                raise Exception
+            else:
+                con = sqlite3.connect('dashboard_database.db')
+                cur = con.cursor()
+                resp1 = con.execute('''INSERT INTO PaymentTable(USERCODE, CARDNUMBER) VALUES (?,?)''', (user_id, cardnumber, ))
+                con.commit()
+                con.close()
+                return 1
+        except Error as e:
+            print("Error in add_payment_card ---------> ", e)
+            return -1
 
 
 
@@ -507,13 +526,13 @@ class Assistance(Users):
                 raise Exception
             curr_time = time.time()
             obj1 = Airport_Data_Access()
-            airport_code = obj1.fetch_airport_code()
+            airport_code = obj1.fetch_airport_code(airport_name)
             if airport_code == -1:
                 raise Exception
             con = sqlite3.connect('dashboard_database.db')
             cur = con.cursor()
             # currentstatus 0  means request is pending. -1 means it has been rejected. 1 means it has been approved
-            con.execute('''INSERT INTO AssistData (USERCODE, SERVICE, TIMEREQUESTED, CURRENTSTATUS, AIRPORTCODE) VALUES(?, ?, ?, ?, ?)''', (user_code, service, curr_time, 0, airport_code, ))
+            con.execute('''INSERT INTO AssistData (USERCODE, SERVICE, TIMEREQUESTED, CURRENTSTATUS, AIRPORTCODE) VALUES(?, ?, ?, ?, ?)''', (user_code[0], service, curr_time, 0, airport_code, ))
             con.commit()
             con.close()
             print('Insert Into Request Assistance Is success')

@@ -179,6 +179,25 @@ def add_trip():
         return json.dumps("Error in adding the trip")
 
 
+# route to add a payment
+# def add_payment_card(self, username, email, cardnumber):
+@app.route('/user/add/payment')
+def add_payment():
+    try:
+        user_name = request.args.get('username')
+        user_email = request.args.get('email')
+        card_number = request.args.get('service')
+        final_insert_obj = database_access.Users()
+        print("")
+        obj_resp = final_insert_obj.add_payment_card(user_name, user_email, card_number)
+        if obj_resp == -1:
+            raise Exception
+        else:
+            return json.dumps("1")
+    except Error as e:
+        print("Unable to upload card info due to exception ---- > ", e)
+        return json.dumps("-1")
+
 
 # route returns the past trips
 @app.route('/user/info/fetch')
@@ -200,6 +219,8 @@ def fetch_all_users():
         print("error fetched ----> ", e)
         return json.dumps("ERROR IN FETCHING PAST TRIP DATA FROM SOURCE")
 
+
+# route to fetch payment info of user
 
 
 @app.route('/lounge/fetch', methods=['GET'])
@@ -241,7 +262,7 @@ def make_assistance_request():
         user_name = request.args.get('username')
         user_email = request.args.get('email')
         obj1 = database_access.Assistance()
-        request_obj_return_exp = obj1.request_assistance()
+        request_obj_return_exp = obj1.request_assistance(services, airport_name, user_name, user_email)
         if request_obj_return_exp == -1:
             raise Exception
         else:

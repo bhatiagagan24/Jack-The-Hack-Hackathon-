@@ -126,10 +126,18 @@ class Create_Database:
             print("Table LoungeRequests created ")
         except Error as e:
             print("Error in lounge_requests ----------> ", e)
+    def payment_tables(self):
+        try:
+            con = sqlite3.connect('dashboard_database.db')
+            con.execute('''CREATE TABLE IF NOT EXISTS PaymentTable (USERCODE INT, CARDNUMBER INT)''')
+            con.close()
+            print("table PaymentTable created")
+        except Error as e:
+            print("error -> ", e)
 
 
 obj1 = Create_Database()
-obj1.lounge_requests()
+obj1.payment_tables()
 
 # con = sqlite3.connect('dashboard_database.db')
 # con.execute('DROP TABLE LoungeRequests')
