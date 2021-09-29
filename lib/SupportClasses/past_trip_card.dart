@@ -14,32 +14,18 @@ class PastTripCard extends StatelessWidget {
       height: 100,
       width: screen_width,
       child: Card(
-          color: Colors.black12,
-          child: Column(
-            children: [
-              Row(
-                children: <Widget>[
-                  Container(
-                      margin: EdgeInsets.only(left: 20, top: 20),
-                      child: FaIcon(
-                        FontAwesomeIcons.dollarSign,
-                        size: 30,
-                        color: Colors.white,
-                      ))
-                ],
-              ),
-              Center(
-                child: Text(
-                  flight_number,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Colors.blue.shade100,
-                  ),
-                ),
-              ),
-            ],
-          )),
+        color: Colors.black12,
+        child: Center(
+          child: Text(
+            flight_number,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              color: Colors.blue.shade100,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

@@ -16,25 +16,32 @@ class DealCard extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Padding(padding: EdgeInsets.all(10)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                          //Container for Circular Image
-                          width: 80.0,
-                          height: 80.0,
-                          decoration: new BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: new DecorationImage(
-                                  fit: BoxFit.fill,
-                                  image: new NetworkImage("${deal!.photo}")))),
-                      Text("${deal!.Shop_name}")
-                    ],
+                  Card(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                            //Container for Circular Image
+                            width: 80.0,
+                            height: 80.0,
+                            decoration: new BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: new DecorationImage(
+                                    fit: BoxFit.fill,
+                                    image:
+                                        new NetworkImage("${deal!.photo}")))),
+                        Text("${deal!.Shop_name}",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 25))
+                      ],
+                    ),
                   ),
                   Padding(padding: EdgeInsets.all(10)),
-                  Text('${deal!.heading}'),
+                  Text('${deal!.heading}',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                   Padding(padding: EdgeInsets.all(10)),
-                  Text('${deal!.simple_Text}')
+                  Text('${deal!.simple_Text}', style: TextStyle(fontSize: 20))
                 ],
               ),
             );
