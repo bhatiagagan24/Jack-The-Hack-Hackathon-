@@ -91,16 +91,16 @@ class LoungeDashboard extends StatelessWidget {
                 crossAxisCount: 2,
                 children: <Widget>[
                   InkWell(
-                    onTap: () {
-                      check_eligibility();
-                      if (res == "1") {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("You are eligible")));
-                      } else if (res == "-1") {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("You are not eligible")));
-                      }
-                    },
+                    // onTap: () {
+                    //   check_eligibility();
+                    //   if (res == "1") {
+                    //     ScaffoldMessenger.of(context).showSnackBar(
+                    //         SnackBar(content: Text("You are eligible")));
+                    //   } else if (res == "-1") {
+                    //     ScaffoldMessenger.of(context).showSnackBar(
+                    //         SnackBar(content: Text("You are not eligible")));
+                    //   }
+                    // },
                     child: Container(
                       //Container to resize the
                       padding: EdgeInsets.all(20),

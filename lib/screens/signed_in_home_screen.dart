@@ -311,38 +311,38 @@ class _SignedInHomeState extends State<SignedInHome> {
           )
         ],
       ),
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.fromLTRB(100, 0, 100, 20),
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20), // <-- Radius
-            ),
-          ),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => AirportSelect(
-                        AirportList: widget.AirportList,
-                        user_name: widget.username,
-                        user_email: widget.email,
-                        route: "QRCode",
-                      )),
-            );
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              FaIcon(
-                FontAwesomeIcons.qrcode,
-                color: Colors.white,
-              ),
-              Text("Scan QR Code"),
-            ],
-          ),
-        ),
-      ),
+      // bottomNavigationBar: Padding(
+      //   padding: EdgeInsets.fromLTRB(100, 0, 100, 20),
+      //   child: ElevatedButton(
+      //     style: ElevatedButton.styleFrom(
+      //       shape: RoundedRectangleBorder(
+      //         borderRadius: BorderRadius.circular(20), // <-- Radius
+      //       ),
+      //     ),
+      //     onPressed: () {
+      //       Navigator.push(
+      //         context,
+      //         MaterialPageRoute(
+      //             builder: (context) => AirportSelect(
+      //                   AirportList: widget.AirportList,
+      //                   user_name: widget.username,
+      //                   user_email: widget.email,
+      //                   route: "QRCode",
+      //                 )),
+      //       );
+      //     },
+      //     child: Row(
+      //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      //       children: <Widget>[
+      //         FaIcon(
+      //           FontAwesomeIcons.qrcode,
+      //           color: Colors.white,
+      //         ),
+      //         Text("Scan QR Code"),
+      //       ],
+      //     ),
+      //   ),
+      // ),
     );
   }
 }
