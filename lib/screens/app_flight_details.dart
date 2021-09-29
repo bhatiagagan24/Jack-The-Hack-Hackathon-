@@ -137,14 +137,15 @@ class _FlightDetailsState extends State<FlightDetails> {
   Future<void> sendData(
       String? flight_number, String? user_name, String? user_email) async {
     Map<String, String> queryParams = {
-      "flight_number": "$flight_number",
-      "user_name": widget.user_name,
-      "user_email": widget.user_email
+      "flight_code": "$flight_number",
+      "username": widget.user_name,
+      "email": widget.user_email
     };
     // var uri = Uri.parse('http://192.168.1.22:5000/');
     String queryString = Uri(queryParameters: queryParams).query;
-    var requesturl = 'http://192.168.1.10:5000/user/add/trip' + queryString;
+    var requesturl = 'http://192.168.1.10:5000/user/add/trip?' + queryString;
     var uri = Uri.parse(requesturl);
     Response response = await get(uri);
+    print(response.body);
   }
 }

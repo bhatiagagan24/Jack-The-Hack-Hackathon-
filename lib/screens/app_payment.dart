@@ -24,11 +24,14 @@ class _PaymentState extends State<Payment> {
       "email": "${widget.email}", "username": "${widget.username}"
     };
     String queryString = Uri(queryParameters: queryParams).query;
-    var requesturl = 'http://192.168.1.10:5000/food/fetch?' + queryString;
+    var requesturl =
+        'http://192.168.1.10:5000/user/payment/fetch?' + queryString;
     var uri = Uri.parse(requesturl);
     Response response = await get(uri);
-    card_number_list =
-        (jsonDecode(response.body) as List<dynamic>).cast<String>();
+    setState(() {
+      card_number_list =
+          (jsonDecode(response.body) as List<dynamic>).cast<String>();
+    });
   }
 
   @override

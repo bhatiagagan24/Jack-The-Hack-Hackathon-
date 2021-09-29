@@ -24,7 +24,7 @@ class _PaymentAddState extends State<PaymentAdd> {
       "service": "${_cardNo.text}"
     };
     String queryString = Uri(queryParameters: queryParams).query;
-    var requesturl = 'http://192.168.1.10:5000/lounge/fetch?' + queryString;
+    var requesturl = 'http://192.168.1.10:5000/user/add/payment?' + queryString;
     var uri = Uri.parse(requesturl);
     Response response = await get(uri);
     res = response.body;
