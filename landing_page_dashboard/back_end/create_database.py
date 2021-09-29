@@ -136,8 +136,8 @@ class Create_Database:
             print("error -> ", e)
 
 
-obj1 = Create_Database()
-obj1.payment_tables()
+# obj1 = Create_Database()
+# obj1.payment_tables()
 
 # con = sqlite3.connect('dashboard_database.db')
 # con.execute('DROP TABLE LoungeRequests')
@@ -146,14 +146,24 @@ obj1.payment_tables()
 # obj1.create_table()
     
 
-# obj2 = Create_Database()
-# obj2.create_table_airport()
-# obj2.user_database()
-# obj2.user_trip_data()
-# obj2.flight_data()
-# obj2.create_shop_logo_database()
-# obj2.shop_login_credentials()
-# obj2.shop_deals_database()
+obj2 = Create_Database()
+obj2.create_table_airport()
+obj2.user_database()
+obj2.user_trip_data()
+obj2.flight_data()
+obj2.create_shop_logo_database()
+obj2.shop_login_credentials()
+obj2.shop_deals_database()
+obj2.create_table()
+obj2.create_airport_shop_database()
+obj2.lounge_data()
+obj2.lounge_food()
+obj2.assistance_database()
+obj2.lounge_requests()
+obj2.payment_tables()
+
+
+
 
 
 # def funct_to_delete_rows():
