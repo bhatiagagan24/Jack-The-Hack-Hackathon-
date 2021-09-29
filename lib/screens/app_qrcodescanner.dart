@@ -3,9 +3,16 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:flutter/foundation.dart';
+import 'package:smart_journey_experience/screens/app_lounge_dashboard.dart';
 
 class QRCodeScanner extends StatefulWidget {
-  const QRCodeScanner({Key? key}) : super(key: key);
+  String username, email, airport;
+  QRCodeScanner(
+      {Key? key,
+      required this.username,
+      required this.email,
+      required this.airport})
+      : super(key: key);
 
   @override
   _QRCodeScannerState createState() => _QRCodeScannerState();
@@ -30,6 +37,17 @@ class _QRCodeScannerState extends State<QRCodeScanner> {
 
   @override
   Widget build(BuildContext context) {
+    if (result != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => LoungeDashboard(
+                  user_name: widget.username,
+                  user_email: widget.email,
+                  name: "${result!.code}",
+                )),
+      );
+    }
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -40,7 +58,7 @@ class _QRCodeScannerState extends State<QRCodeScanner> {
               fit: BoxFit.contain,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
+                children: [
                   if (result != null)
                     Text(
                         'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')

@@ -319,7 +319,18 @@ class _SignedInHomeState extends State<SignedInHome> {
               borderRadius: BorderRadius.circular(20), // <-- Radius
             ),
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => AirportSelect(
+                        AirportList: widget.AirportList,
+                        user_name: widget.username,
+                        user_email: widget.email,
+                        route: "QRCode",
+                      )),
+            );
+          },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
