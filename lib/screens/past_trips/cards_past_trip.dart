@@ -6,6 +6,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:smart_journey_experience/SupportClasses/past_trip_card.dart';
 
 class CardsPastTrips extends StatefulWidget {
   var user_name;
@@ -70,23 +71,26 @@ class _CardsPastTripsState extends State<CardsPastTrips> {
                   //     },
                   // child: Text('Check Content')),
                   // Text(snapshot.data[index][0]),
-                  Container(
-                    height: 100,
-                    width: screen_width,
-                    child: Card(
-                      color: Colors.black12,
-                      child: Center(
-                        child: Text(
-                          snapshot.data[index][0],
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Colors.blue.shade100,
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
+                  PastTripCard(
+                      flight_number: snapshot.data[index][0],
+                      screen_width: screen_width)
+                  // Container(
+                  //   height: 100,
+                  //   width: screen_width,
+                  //   child: Card(
+                  //     color: Colors.black12,
+                  //     child: Center(
+                  //       child: Text(
+                  //         snapshot.data[index][0],
+                  //         style: TextStyle(
+                  //           fontWeight: FontWeight.bold,
+                  //           fontSize: 20,
+                  //           color: Colors.blue.shade100,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // )
                 ]),
               );
             }

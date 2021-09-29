@@ -71,7 +71,7 @@ class _AssistanceState extends State<Assistance> {
                 ),
                 child: Column(
                   children: [
-                    Padding(padding: EdgeInsets.all(30)),
+                    Padding(padding: EdgeInsets.all(20)),
                     FaIcon(
                       FontAwesomeIcons.wheelchair,
                       color: Colors.purple[200],
@@ -102,7 +102,7 @@ class _AssistanceState extends State<Assistance> {
                 ),
                 child: Column(
                   children: [
-                    Padding(padding: EdgeInsets.all(30)),
+                    Padding(padding: EdgeInsets.all(20)),
                     FaIcon(
                       FontAwesomeIcons.medkit,
                       color: Colors.purple[200],

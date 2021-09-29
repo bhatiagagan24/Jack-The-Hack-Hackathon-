@@ -44,7 +44,7 @@ class DealCard extends StatelessWidget {
       child: Container(
         height: 600,
         //Container to resize the
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.all(5),
         child: Card(
           margin: EdgeInsets.all(10),
           shape: RoundedRectangleBorder(
@@ -55,8 +55,8 @@ class DealCard extends StatelessWidget {
               Padding(padding: EdgeInsets.all(10)),
               Container(
                   //Container for Circular Image
-                  width: 80.0,
-                  height: 80.0,
+                  width: 70.0,
+                  height: 70.0,
                   decoration: new BoxDecoration(
                       shape: BoxShape.circle,
                       image: new DecorationImage(
