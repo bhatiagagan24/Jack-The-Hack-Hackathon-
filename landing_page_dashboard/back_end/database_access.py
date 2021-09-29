@@ -73,6 +73,7 @@ class Users:
                     user_id.append(k)
             # User does not exists
             # print(k)
+            print("user id -> ", user_id)
             if len(user_id) == 0:
                 print("user does not exists")
                 res2 = con.execute('''INSERT INTO Users(Username, Email) VALUES (?, ?)''', (name, email, ))
@@ -88,13 +89,15 @@ class Users:
     # UserTrip(USERID INTEGER, FLIGHTCODE TEXT, RECORD_UPDATE INT
     def user_trip_upload(self, name, email, flightcode):
         try:
+            print("In user trip upload")
+            print(f"username -> {name} :: email -> {email}")
             user_id = self.create_or_fetch_user(email, name)
             if user_id == -1000:
                 raise Exception
             else:
                 con = sqlite3.connect('dashboard_database.db')
                 cur = con.cursor()
-                resp1 = con.execute('''INSERT INTO UserTrip(USERID, FLIGHTCODE, RECORD_UPDATE) VALUES (?, ?, ?)''', (user_id, flightcode, time.time()))
+                resp1 = con.execute('''INSERT INTO UserTrip(USERID, FLIGHTCODE, RECORD_UPDATE) VALUES (?, ?, ?)''', (user_id[0], flightcode, time.time()))
                 con.commit()
                 con.close()
                 return 1
@@ -146,10 +149,31 @@ class Users:
         except Error as e:
             print("Error in add_payment_card ---------> ", e)
             return -1
+    
+    def fetch_payment_cards(self, email, username):
+        try:
+            user_id = self.create_or_fetch_user(email, username)
+            user_id = user_id[0]
+            if user_id == -1000:
+                raise Exception
+            else:
+                con = sqlite3.connect('dashboard_database.db')
+                cur = con.cursor()
+                resp1 = con.execute('''SELECT CARDNUMBER FROM PaymentTable WHERE USERCODE=?''', (user_id, ))
+                final_response = []
+                for u in resp1:
+                    for v in u:
+                        final_response.append(str(v))
+                print("final_response -- > ", final_response)
+                return final_response
+        except Error as e:
+            print("error in fetch_payment is -> ", e)
+            return -1
 
 
 
-
+# temp_obj = Users()
+# temp_obj.fetch_payment('abcd@gmail.com', 'gagan')
 
 
 

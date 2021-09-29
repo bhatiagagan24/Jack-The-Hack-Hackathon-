@@ -166,13 +166,14 @@ def add_trip():
     try:
         user_name = request.args.get('username')
         user_email = request.args.get('email')
-        flight_code = request.args.get('flightcode')
+        flight_code = request.args.get('flight_code')
         add_trip_obj = database_access.Users()
         final_resp_from_obj = add_trip_obj.user_trip_upload(user_name, user_email, flight_code)
-        del add_trip_obj
+        print("Final response from object ==== > ", final_resp_from_obj)
         if final_resp_from_obj == -1:
             raise Exception
         else:
+            del add_trip_obj
             return json.dumps("Uploaded Successfully")
     except:
         del add_trip_obj
@@ -221,7 +222,22 @@ def fetch_all_users():
 
 
 # route to fetch payment info of user
-
+# fetch_payment_cards(self, email, username):
+@app.route('/user/payment/fetch', methods=['GET'])
+def fetch_payment():
+    try:
+        username = request.args.get('username')
+        email = request.args.get('email')
+        print("In fetch_payment , username ------> ", username)
+        obj1 = database_access.Users()
+        resp = obj1.fetch_payment_cards(email, username)
+        if resp == -1:
+            raise Exception
+        else:
+            return json.dumps(resp)
+    except Error as e:
+        print("error in fetch_payment ----- > ", e)
+        return json.dumps("-1")
 
 @app.route('/lounge/fetch', methods=['GET'])
 def return_lounge():
