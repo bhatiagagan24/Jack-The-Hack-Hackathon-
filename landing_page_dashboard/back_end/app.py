@@ -251,6 +251,27 @@ def make_assistance_request():
         return json.dumps("Error in making assistance request")
 
 
+# lounge_request(self, lounge_name, username, email
+@app.route('/lounge/request', methods=['GET'])
+def make_lounge_request():
+    try:
+        lounge_name = request.args.get("loungename")
+        username = request.args.get("username")
+        email = request.args.get("email")
+        print("in make_assistance ------> loungename = ", lounge_name)
+        obj1 = database_access.Airport_Data_Access()
+        resp = obj1.lounge_request(lounge_name, username, email)
+        del obj1
+        if resp == -1:
+            raise Exception
+        else:
+            return json.dumps("1")
+    except Error as e:
+        print("Error un route /lounge/request ===================> ", e)
+        return json.dumps("ERROR REQUESTING A LOUNGE")
+
+
+
 # when the route is not defined
 @app.errorhandler(404)
 def not_found(e):

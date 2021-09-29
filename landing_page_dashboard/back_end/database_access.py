@@ -54,6 +54,86 @@ class Image_Info_Insert:
             print('error in inserting the value in table')
             return -1
 
+
+
+
+class Users:
+    def __init__(self):
+        pass
+    def create_or_fetch_user(self, email, name):
+        try:
+            con = sqlite3.connect('dashboard_database.db')
+            cur = con.cursor()
+            # first I will check if user exists or not
+            # Users (ID INTEGER PRIMARY KEY AUTOINCREMENT, USERNAME TEXT, EMAIL TEXT)''')
+            res1 = con.execute('''SELECT ID FROM Users WHERE (USERNAME, EMAIL) = (?, ?)''', (name, email))
+            user_id = []
+            for m in res1:
+                for k in m:
+                    user_id.append(k)
+            # User does not exists
+            # print(k)
+            if len(user_id) == 0:
+                print("user does not exists")
+                res2 = con.execute('''INSERT INTO Users(Username, Email) VALUES (?, ?)''', (name, email, ))
+                con.commit()
+                con.close()
+                self.create_or_fetch_user(email, name)
+            print(user_id)
+            return user_id
+        except Error as e:
+            print(e)
+            return -1000
+
+    # UserTrip(USERID INTEGER, FLIGHTCODE TEXT, RECORD_UPDATE INT
+    def user_trip_upload(self, name, email, flightcode):
+        try:
+            user_id = self.create_or_fetch_user(email, name)
+            if user_id == -1000:
+                raise Exception
+            else:
+                con = sqlite3.connect('dashboard_database.db')
+                cur = con.cursor()
+                resp1 = con.execute('''INSERT INTO UserTrip(USERID, FLIGHTCODE, RECORD_UPDATE) VALUES (?, ?, ?)''', (user_id, flightcode, time.time()))
+                con.commit()
+                con.close()
+                return 1
+        except Error as e:
+            print("error in user_trip_upload :: ---- > ", e)
+            return -1
+    
+    # Returning all the past trips of the User (Returns FlightCode)
+    def return_past_trips(self, name, email):
+        try:
+            user_id = self.create_or_fetch_user(email, name)
+            user_id = user_id[0]
+            print("user id -----------------------> ", user_id)
+            if user_id == -1000:
+                raise Exception
+            else:
+                con = sqlite3.connect('dashboard_database.db')
+                cur = con.cursor()
+                resp1 = con.execute('''SELECT FLIGHTCODE, RECORD_UPDATE FROM UserTrip WHERE USERID=?''', (user_id, ))
+                final_resp = []
+                for t in resp1:
+                    new_list = deepcopy({})
+                    new_list["flightcode"] = t[0]
+                    new_list["timeuploaded"] = t[1]
+                    final_resp.append(new_list)
+                print(final_resp)
+                con.close()
+            return final_resp
+        except Error as e:
+            print("Error in return past trip ----   > ", e)
+            return -1
+
+
+
+
+
+
+
+
 class Airport_Data_Access:
     # Normal constructor for fetching list of all airports
     def __init__(self):
@@ -155,6 +235,7 @@ class Airport_Data_Access:
             cur = con.cursor()
             one = con.execute('''SELECT LOUNGECODE FROM LoungeData WHERE LOUNGENAME = ?''', (lounge_name, ))
             lounge_code = -1
+            print("In fetch_lounge_code , lounge_name -------------> ", lounge_name)
             for u in one:
                 for t in u:
                     lounge_code = t
@@ -187,6 +268,33 @@ class Airport_Data_Access:
                 return food_items
         except Error as e:
             print("Error while fetching food", e)
+            return -1
+    
+    # CREATE TABLE IF NOT EXISTS LoungeRequests (USERCODE INT, LOUNGECODE INT, ACCESSGIVEN INT, REQUESTTIME INT
+    def lounge_request(self, lounge_name, username, email):
+        try:
+            obj1 = Users()
+            print(f"In function lounge_request ---- > name : {username}     :: email : {email} :: lounge_name : {lounge_name}")
+            user_code = obj1.create_or_fetch_user(email, username)
+            del obj1
+            if user_code == -1000:
+                # del obj1
+                raise Exception
+            else:
+                lounge_code = self.fetch_lounge_code(lounge_name)
+                if lounge_code == -1:
+                    raise Exception
+                else:
+                    print(f" In func lounge_request :: usercode -> {user_code}   &    lounge_code -> {lounge_code}")
+                    con = sqlite3.connect('dashboard_database.db')
+                    cur = con.cursor()
+                    con.execute('''INSERT INTO LoungeRequests (USERCODE, LOUNGECODE, ACCESSGIVEN, REQUESTTIME) VALUES (?, ?, ?, ?)''', (user_code[0], lounge_code, 0, time.time()))
+                    con.commit()
+                    con.close()
+                    print("lounge request executed successfully")
+                    return 1
+        except Error as e:
+            print("Error in func lounge request ---- >>  ", e)
             return -1
 
 
@@ -387,76 +495,6 @@ class Flights:
             con.close()
     
 
-
-class Users:
-    def __init__(self):
-        pass
-    def create_or_fetch_user(self, email, name):
-        try:
-            con = sqlite3.connect('dashboard_database.db')
-            cur = con.cursor()
-            # first I will check if user exists or not
-            # Users (ID INTEGER PRIMARY KEY AUTOINCREMENT, USERNAME TEXT, EMAIL TEXT)''')
-            res1 = con.execute('''SELECT ID FROM Users WHERE (USERNAME, EMAIL) = (?, ?)''', (name, email))
-            user_id = []
-            for m in res1:
-                for k in m:
-                    user_id.append(k)
-            # User does not exists
-            # print(k)
-            if len(user_id) == 0:
-                print("user does not exists")
-                res2 = con.execute('''INSERT INTO Users(Username, Email) VALUES (?, ?)''', (name, email, ))
-                con.commit()
-                con.close()
-                self.create_or_fetch_user(email, name)
-            print(user_id)
-            return user_id
-        except Error as e:
-            print(e)
-            return -1000
-
-    # UserTrip(USERID INTEGER, FLIGHTCODE TEXT, RECORD_UPDATE INT
-    def user_trip_upload(self, name, email, flightcode):
-        try:
-            user_id = self.create_or_fetch_user(email, name)
-            if user_id == -1000:
-                raise Exception
-            else:
-                con = sqlite3.connect('dashboard_database.db')
-                cur = con.cursor()
-                resp1 = con.execute('''INSERT INTO UserTrip(USERID, FLIGHTCODE, RECORD_UPDATE) VALUES (?, ?, ?)''', (user_id, flightcode, time.time()))
-                con.commit()
-                con.close()
-                return 1
-        except Error as e:
-            print("error in user_trip_upload :: ---- > ", e)
-            return -1
-    
-    # Returning all the past trips of the User (Returns FlightCode)
-    def return_past_trips(self, name, email):
-        try:
-            user_id = self.create_or_fetch_user(email, name)
-            user_id = user_id[0]
-            print("user id -----------------------> ", user_id)
-            if user_id == -1000:
-                raise Exception
-            else:
-                con = sqlite3.connect('dashboard_database.db')
-                cur = con.cursor()
-                resp1 = con.execute('''SELECT FLIGHTCODE, RECORD_UPDATE FROM UserTrip WHERE USERID=?''', (user_id, ))
-                final_resp = []
-                for t in resp1:
-                    new_list = deepcopy({})
-                    new_list["flightcode"] = t[0]
-                    new_list["timeuploaded"] = t[1]
-                    final_resp.append(new_list)
-                print(final_resp)
-                con.close()
-            return final_resp
-        except Error as e:
-            print("Error in return past trip ----   > ", e)
-            return -1
 
 # CREATE TABLE IF NOT EXISTS AssistData (USERCODE INT, SERVICE TEXT, TIMEREQUESTED INT, CURRENTSTATUS INT, AIRPORTCODE INT
 class Assistance(Users):

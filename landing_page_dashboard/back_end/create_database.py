@@ -120,7 +120,8 @@ class Create_Database:
         try:
             con = sqlite3.connect('dashboard_database.db')
             # ACCESSGIVEN IS 0 IF ACCESS NOT GIVEN. IT IS 1 IF ACCESS GIVEN
-            con.execute('''CREATE TABLE IF NOT EXISTS LoungeRequests (USERCODE INT, LOUNGECODE INT, ACCESSGIVEN INT)''')
+            # REQUESTTIME IS UNIX TIME
+            con.execute('''CREATE TABLE IF NOT EXISTS LoungeRequests (USERCODE INT, LOUNGECODE INT, ACCESSGIVEN INT, REQUESTTIME INT)''')
             con.close()
             print("Table LoungeRequests created ")
         except Error as e:
@@ -130,6 +131,8 @@ class Create_Database:
 obj1 = Create_Database()
 obj1.lounge_requests()
 
+# con = sqlite3.connect('dashboard_database.db')
+# con.execute('DROP TABLE LoungeRequests')
 
 # obj1 = Create_Database()
 # obj1.create_table()
