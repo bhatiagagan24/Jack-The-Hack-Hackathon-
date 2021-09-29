@@ -10,3 +10,4 @@ pubspec.yaml
 smart_journey_experience.iml  
 web/   
 winuwp/
+back_end/config.py

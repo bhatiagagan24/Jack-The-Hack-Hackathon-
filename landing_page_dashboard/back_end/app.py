@@ -282,6 +282,8 @@ def make_assistance_request():
         if request_obj_return_exp == -1:
             raise Exception
         else:
+            del obj1
+            print("Returning 1")
             return json.dumps("1")
     except Error as e:
         print("Error in assistance request ----------> ", e)
