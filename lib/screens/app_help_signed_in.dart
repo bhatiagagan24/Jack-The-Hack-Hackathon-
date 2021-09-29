@@ -14,26 +14,22 @@ class HelpSignedIn extends StatelessWidget {
       required this.airport})
       : super(key: key);
   String airport_email = "", airport_number = "";
-  Future<void> get_help_data() async {
-    Map<String, String> queryParams = {
-      "airportname": "$airport",
+  void get_help_data() {
+    Map<String, List> help_data = {
+      "Mumbai": ["033- 2342334", "mumbaiairport@govt.com"],
+      "Delhi": ["011- 2362334", "igiairport@govt.com"],
+      "Amritsar": ["011- 348888", "amritsarairport@govt.com"]
     };
-    String queryString = Uri(queryParameters: queryParams).query;
-    var requesturl = 'http://192.168.1.10:5000/food/fetch?' + queryString;
-    var uri = Uri.parse(requesturl);
-    Response response = await get(uri);
-    List help = (jsonDecode(response.body) as List<dynamic>).cast<String>();
-    airport_email = help[1];
-    airport_number = help[0];
+    airport_email = help_data["$airport"]![1];
+    airport_number = help_data["$airport"]![0];
   }
 
   @override
-  void initState() {
-    get_help_data();
-  }
+  void initState() {}
 
   @override
   Widget build(BuildContext context) {
+    get_help_data();
     return Scaffold(
         appBar: AppBar(
           title: Text(

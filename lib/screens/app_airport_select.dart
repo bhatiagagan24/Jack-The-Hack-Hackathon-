@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:smart_journey_experience/screens/app_help_signed_in.dart';
+import 'package:smart_journey_experience/screens/app_qrcodescanner.dart';
 import './app_assistance.dart';
 import 'package:smart_journey_experience/screens/app_flight_details.dart';
 // import 'app_lounge.dart';
@@ -148,6 +149,15 @@ class _AirportSelectState extends State<AirportSelect> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => HelpSignedIn(
+                          username: widget.user_name,
+                          email: widget.user_email,
+                          airport: "$choosen_option")),
+                );
+              } else if (widget.route == "QRCode") {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => QRCodeScanner(
                           username: widget.user_name,
                           email: widget.user_email,
                           airport: "$choosen_option")), //To CHange

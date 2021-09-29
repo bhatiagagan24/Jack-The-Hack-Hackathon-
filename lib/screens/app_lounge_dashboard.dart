@@ -8,6 +8,7 @@ import 'package:smart_journey_experience/screens/app_food_load.dart';
 class LoungeDashboard extends StatelessWidget {
   String user_name, user_email;
   String name;
+  String res = "";
   LoungeDashboard(
       {Key? key,
       required this.user_name,
@@ -26,6 +27,19 @@ class LoungeDashboard extends StatelessWidget {
     Response response = await get(uri);
     food_list = (jsonDecode(response.body) as List<dynamic>).cast<String>();
     print(food_list);
+  }
+
+  Future<void> check_eligibility() async {
+    Map<String, String> queryParams = {
+      // "loungename": "$loungename",
+      "email": "${user_email}",
+      "username": "${user_name}",
+    };
+    String queryString = Uri(queryParameters: queryParams).query;
+    var requesturl = 'http://192.168.1.10:5000/food/fetch?' + queryString;
+    var uri = Uri.parse(requesturl);
+    Response response = await get(uri);
+    res = response.body;
   }
 
   @override
@@ -77,7 +91,16 @@ class LoungeDashboard extends StatelessWidget {
                 crossAxisCount: 2,
                 children: <Widget>[
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      check_eligibility();
+                      if (res == "1") {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("You are eligible")));
+                      } else if (res == "-1") {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("You are not eligible")));
+                      }
+                    },
                     child: Container(
                       //Container to resize the
                       padding: EdgeInsets.all(20),
