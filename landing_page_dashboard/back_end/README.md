@@ -13,7 +13,7 @@ Tech Stack: -
 **
 Language - Python
 Backend Library - Flask
-Database - MongoDB/Redis (To be decided)
+Database - SQLite (To be decided)
 **
 
 The main aim of the Backend here is to update the content which will be shown to the users on the main app.
