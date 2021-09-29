@@ -147,9 +147,53 @@ class Airport_Data_Access:
         except Error as e:
             print("Error in fetch_lounge ------->   ", e)
             return -1
+    
+# CREATE TABLE IF NOT EXISTS LoungeData (LOUNGECODE INTEGER PRIMARY KEY AUTOINCREMENT, AIRPORTCODE INT, LOUNGENAME TEXT
+    def fetch_lounge_code(self, lounge_name):
+        try:
+            con = sqlite3.connect('dashboard_database.db')
+            cur = con.cursor()
+            one = con.execute('''SELECT LOUNGECODE FROM LoungeData WHERE LOUNGENAME = ?''', (lounge_name, ))
+            lounge_code = -1
+            for u in one:
+                for t in u:
+                    lounge_code = t
+            if lounge_code == -1:
+                raise Exception
+            else:
+                print(lounge_code)
+                return lounge_code
+        except Error as e:
+            print("Error while fetching lounge code -------> ", e)
+            return -1
+
+
+    # CREATE TABLE IF NOT EXISTS LoungeFood (LOUNGECODE INTEGER, FOOD TEXT)
+    def fetch_food(self, lounge_name):
+        try:
+            con = sqlite3.connect('dashboard_database.db')
+            cur = con.cursor() 
+            lounge_code = self.fetch_lounge_code(lounge_name)
+            if lounge_code == -1:
+                raise Exception
+            else:
+                one = con.execute('''SELECT FOOD FROM LoungeFood WHERE LOUNGECODE = ?''', (lounge_code, ))
+                food_items = []
+                for u in one:
+                    print(u)
+                    for v in u:
+                        print(v)
+                        food_items.append(v)
+                return food_items
+        except Error as e:
+            print("Error while fetching food", e)
+            return -1
+
+
 
 # obj1 = Airport_Data_Access()
-# obj1.fetch_lounge('Delhi')
+# obj1.fetch_lounge_code('Delhi1')
+
 
 class Shop_Data_Acccess(Airport_Data_Access):
     def __init__(self):
@@ -408,11 +452,39 @@ class Users:
                     new_list["timeuploaded"] = t[1]
                     final_resp.append(new_list)
                 print(final_resp)
+                con.close()
             return final_resp
         except Error as e:
             print("Error in return past trip ----   > ", e)
             return -1
-    
+
+# CREATE TABLE IF NOT EXISTS AssistData (USERCODE INT, SERVICE TEXT, TIMEREQUESTED INT, CURRENTSTATUS INT, AIRPORTCODE INT
+class Assistance(Users):
+    def __init__(self):
+        pass
+    def request_assistance(self, service, airport_name, user_name, user_email):
+        try:
+            user_code = self.create_or_fetch_user(user_email, user_name)
+            if user_code == -1000:
+                raise Exception
+            curr_time = time.time()
+            obj1 = Airport_Data_Access()
+            airport_code = obj1.fetch_airport_code()
+            if airport_code == -1:
+                raise Exception
+            con = sqlite3.connect('dashboard_database.db')
+            cur = con.cursor()
+            # currentstatus 0  means request is pending. -1 means it has been rejected. 1 means it has been approved
+            con.execute('''INSERT INTO AssistData (USERCODE, SERVICE, TIMEREQUESTED, CURRENTSTATUS, AIRPORTCODE) VALUES(?, ?, ?, ?, ?)''', (user_code, service, curr_time, 0, airport_code, ))
+            con.commit()
+            con.close()
+            print('Insert Into Request Assistance Is success')
+            return 1
+        except Error as e:
+            print("Error in request assistance --------> ", e)
+            return -1
+            
+
 
             
             # res3 = con.execute('''INSERT IN)''')

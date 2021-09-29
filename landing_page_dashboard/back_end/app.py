@@ -210,11 +210,45 @@ def return_lounge():
         res = obj1.fetch_lounge(airport_name)
         if res == -1:
             raise Exception
+        del obj1
         return json.dumps(res)
     except Error as e:
         print('Error in route /lounge/fetch -----------> ', e)
         return json.dumps("Error while returning Lounge")
 
+
+@app.route('/food/fetch', methods=['GET'])
+def return_lounge_food():
+    try:
+        lounge_name = request.args.get('loungename')
+        obj1 = database_access.Airport_Data_Access()
+        res = obj1.fetch_food(lounge_name)
+        if res == -1:
+            raise Exception
+        else:
+            return json.dumps(res)
+    except Error as e:
+        print("Error while fetching food /food/fetch   -----------> ", e)
+        return json.dumps("Error while fetching food")
+
+
+@app.route('/assistance/request', methods=['GET'])
+def make_assistance_request():
+    try:
+        # service, airport_name, user_name, user_email
+        services = request.args.get('service')
+        airport_name = request.args.get('airportname')
+        user_name = request.args.get('username')
+        user_email = request.args.get('email')
+        obj1 = database_access.Assistance()
+        request_obj_return_exp = obj1.request_assistance()
+        if request_obj_return_exp == -1:
+            raise Exception
+        else:
+            return json.dumps("1")
+    except Error as e:
+        print("Error in assistance request ----------> ", e)
+        return json.dumps("Error in making assistance request")
 
 
 # when the route is not defined

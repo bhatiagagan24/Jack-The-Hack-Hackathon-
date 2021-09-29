@@ -98,9 +98,27 @@ class Create_Database:
             con.close()
         except Error as e:
             print("Error while creating LoungeData -------------------> ", e)
+    
+    def lounge_food(self):
+        try:
+            con = sqlite3.connect('dashboard_database.db')
+            con.execute('''CREATE TABLE IF NOT EXISTS LoungeFood (LOUNGECODE INTEGER, FOOD TEXT)''')
+            con.close()
+        except Error as e:
+            print("The table loungefood not created due to following error ----------> ", e)
 
-# obj1 = Create_Database()
-# obj1.lounge_data()
+    def assistance_database(self):
+        try:
+            con = sqlite3.connect('dashboard_database.db')
+            con.execute('''CREATE TABLE IF NOT EXISTS AssistData (USERCODE INT, SERVICE TEXT, TIMEREQUESTED INT, CURRENTSTATUS INT, AIRPORTCODE INT)''')
+            con.close()
+            print("assistance_database executed well")
+        except Error as e:
+            print("Error in assistance_database ---------------->  ", e)
+
+
+obj1 = Create_Database()
+obj1.assistance_database()
 
 
 # obj1 = Create_Database()
