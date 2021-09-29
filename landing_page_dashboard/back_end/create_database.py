@@ -115,10 +115,20 @@ class Create_Database:
             print("assistance_database executed well")
         except Error as e:
             print("Error in assistance_database ---------------->  ", e)
+    
+    def lounge_requests(self):
+        try:
+            con = sqlite3.connect('dashboard_database.db')
+            # ACCESSGIVEN IS 0 IF ACCESS NOT GIVEN. IT IS 1 IF ACCESS GIVEN
+            con.execute('''CREATE TABLE IF NOT EXISTS LoungeRequests (USERCODE INT, LOUNGECODE INT, ACCESSGIVEN INT)''')
+            con.close()
+            print("Table LoungeRequests created ")
+        except Error as e:
+            print("Error in lounge_requests ----------> ", e)
 
 
 obj1 = Create_Database()
-obj1.assistance_database()
+obj1.lounge_requests()
 
 
 # obj1 = Create_Database()
